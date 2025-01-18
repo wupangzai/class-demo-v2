@@ -3,6 +3,8 @@ import App from "./App.vue";
 
 import packages from "@/packages"; // 三方库的引入
 
+import "@/assets/css/index.less"; // normalize.less
+
 const app = createApp(App);
 
 app.use(packages);
