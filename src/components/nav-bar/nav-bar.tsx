@@ -1,4 +1,5 @@
 import { ref, defineComponent, Fragment } from "vue";
+import { useRouter } from "vue-router";
 
 import MenuConfig from "@/components/nav-bar/config";
 import {
@@ -13,6 +14,8 @@ export default defineComponent({
   name: "NavBar",
 
   setup() {
+    const router = useRouter();
+
     return () => {
       return (
         <ElMenu collapse={true} class="custom-menu">
@@ -40,7 +43,10 @@ export default defineComponent({
                         }}
                       >
                         {subMenuGroup.map((menuItem) => (
-                          <ElMenuItem index={menuItem.index}>
+                          <ElMenuItem
+                            {...menuItem}
+                            onclick={() => router.push(menuItem.path)}
+                          >
                             {menuItem.title}
                           </ElMenuItem>
                         ))}
@@ -51,8 +57,9 @@ export default defineComponent({
             } else if (menu.component === "el-menu-item") {
               return (
                 <ElMenuItem
-                  index={menu.index}
+                  {...menu}
                   v-slots={{ title: () => menu.title }}
+                  onclick={() => router.push(menu.path)}
                 >
                   <el-icon>
                     <menu.icon />
