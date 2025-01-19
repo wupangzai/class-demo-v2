@@ -1,4 +1,4 @@
-import { ref, defineComponent } from "vue";
+import { ref, defineComponent, Fragment } from "vue";
 
 import MenuConfig from "@/components/nav-bar/config";
 import {
@@ -15,7 +15,7 @@ export default defineComponent({
   setup() {
     return () => {
       return (
-        <ElMenu collapse={true}>
+        <ElMenu collapse={true} class="custom-menu">
           {MenuConfig.map((menu) => {
             if (menu.component === "el-sub-menu") {
               return (
@@ -23,27 +23,41 @@ export default defineComponent({
                   index={menu.index}
                   v-slots={{
                     title: () => (
-                      <ElIcon>
-                        <menu.icon />
-                      </ElIcon>
+                      <Fragment>
+                        <ElIcon>
+                          <menu.icon />
+                        </ElIcon>
+                        <span>{menu.title}</span>
+                      </Fragment>
                     ),
                   }}
                 >
-                  {menu.subMenu.length ??
+                  {menu.subMenu.length &&
                     menu.subMenu.map((subMenuGroup) => (
                       <ElMenuItemGroup
                         v-slots={{
-                          title: () => <span>"Group One"</span>,
-                          default: () =>
-                            subMenuGroup.map((menuItem) => (
-                              <ElMenuItem index={menuItem.index}>
-                                {menuItem.title}
-                              </ElMenuItem>
-                            )),
+                          title: () => <div>Group one</div>,
                         }}
-                      ></ElMenuItemGroup>
+                      >
+                        {subMenuGroup.map((menuItem) => (
+                          <ElMenuItem index={menuItem.index}>
+                            {menuItem.title}
+                          </ElMenuItem>
+                        ))}
+                      </ElMenuItemGroup>
                     ))}
                 </ElSubMenu>
+              );
+            } else if (menu.component === "el-menu-item") {
+              return (
+                <ElMenuItem
+                  index={menu.index}
+                  v-slots={{ title: () => menu.title }}
+                >
+                  <el-icon>
+                    <menu.icon />
+                  </el-icon>
+                </ElMenuItem>
               );
             }
           })}
