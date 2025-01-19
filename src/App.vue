@@ -6,6 +6,7 @@
 
 <script lang="ts" setup>
 import NavBar from "@/components/nav-bar/nav-bar";
+import { RouterView } from "vue-router";
 </script>
 
 <style lang="less">
