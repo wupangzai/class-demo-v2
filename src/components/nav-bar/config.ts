@@ -2,11 +2,11 @@ import {
   Operation,
   Position,
   Document,
-  OfficeBuilding,
   Money,
-  UserFilled,
+  User,
   Search,
   Edit,
+  Histogram,
 } from "@element-plus/icons-vue";
 
 const menu = [
@@ -50,7 +50,7 @@ const menu = [
   {
     index: "4",
     component: "el-menu-item",
-    icon: OfficeBuilding,
+    icon: Histogram,
     title: "课表概览",
     subMenu: [],
     path: "/todo",
@@ -66,7 +66,7 @@ const menu = [
   {
     index: "6",
     component: "el-menu-item",
-    icon: UserFilled,
+    icon: User,
     title: "CRM",
     subMenu: [],
     path: "/todo",
