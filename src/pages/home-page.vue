@@ -1,16 +1,23 @@
 <template>
   <div class="content-container">
-    <button @click="fn1">click</button>
+    <el-button @click="fn1" type="primary">click</el-button>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { onMounted } from "vue";
 import { API } from "@/api";
-import { useLocalStorage } from "@/hooks";
+import Login from "@/components/login/index.vue";
+import { useDialog } from "@/components/common/dialog";
 
 onMounted(async () => {
   const data = await API.getMetaBaseCourseArrange("next1days");
+  const res = useDialog({
+    content: Login,
+    dialogProps: {
+      footer: true,
+    },
+  });
 });
 
 function fn1() {}
