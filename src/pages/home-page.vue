@@ -1,16 +1,19 @@
 <template>
-  <div class="content-container">123456</div>
+  <div class="content-container">
+    <button @click="fn1">click</button>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { onMounted } from "vue";
 import { API } from "@/api";
-import { useDialog } from "@/components/common/dialog";
-import Login from "@/components/login/index.vue";
+import { useLocalStorage } from "@/hooks";
 
 onMounted(async () => {
   const data = await API.getMetaBaseCourseArrange("next1days");
 });
+
+function fn1() {}
 </script>
 
 <style lang="less">
