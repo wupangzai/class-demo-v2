@@ -30,3 +30,25 @@ export async function getMetaBaseCourseArrange(
 
   return data;
 }
+
+interface LoginData {
+  username: string;
+  password: string;
+}
+export async function LoginToCrm(LoginData: LoginData) {
+  const res = await http.postJson("/crm/pub/login", {
+    org_id: 5,
+    ...LoginData,
+  });
+
+  return res;
+}
+
+// 验证token是否过期的随机接口
+export async function validateToken() {
+  const res = await http.get(
+    "/crm/notifications?user_id=1799&is_read=0&per_page=99&page=1",
+    {}
+  );
+  return res;
+}

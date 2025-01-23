@@ -17,7 +17,11 @@
           <el-input v-model="ruleForm.account" />
         </el-form-item>
         <el-form-item label="Password" prop="password">
-          <el-input v-model="ruleForm.password" />
+          <el-input v-model="ruleForm.password" type="password" />
+        </el-form-item>
+        <el-form-item class="button-control">
+          <el-button @click="handleClose('cancel')">Cancel</el-button>
+          <el-button @click="submit" type="primary">Login</el-button>
         </el-form-item>
       </el-space>
     </el-form>
@@ -26,13 +30,21 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
-import { FormInstance, FormRules } from "element-plus";
+import { FormInstance, FormRules, ElNotification } from "element-plus";
+import { CloseType } from "@/components/common/dialog";
+import { API } from "@/api";
+import { useLocalStorage } from "@/hooks";
+import { http } from "@/packages/axios/common";
 
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive({
   account: "",
   password: "",
 });
+
+const emits = defineEmits<{
+  (e: "update:visible", value: boolean): void;
+}>();
 
 function isEmpty(value: string) {
   return !value;
@@ -60,10 +72,33 @@ const rules = reactive<FormRules<typeof ruleForm>>({
   password: [{ trigger: "blur", validator: checkPassword }],
 });
 
+function handleClose(type: CloseType) {
+  const value = type === "confirm";
+  emits("update:visible", value);
+}
+
 function submit() {
   if (ruleFormRef) {
-    ruleFormRef.value?.validate((valid) => {
+    ruleFormRef.value?.validate(async (valid) => {
       if (valid) {
+        const res = await API.LoginToCrm({
+          username: ruleForm.account,
+          password: ruleForm.password,
+        });
+        if (res.access_token) {
+          useLocalStorage("token", res.access_token);
+          http.setOptions({
+            headers: {
+              Authorization: `Bearer ${res.access_token}`,
+            },
+          });
+          handleClose("confirm");
+          ElNotification({
+            title: "Login Successfully",
+            message: "登录成功",
+            type: "success",
+          });
+        }
       }
     });
   }
@@ -72,5 +107,10 @@ function submit() {
 
 <style lang="less">
 .login {
+  .button-control > .el-form-item__content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
 }
 </style>

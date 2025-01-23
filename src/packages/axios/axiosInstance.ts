@@ -2,6 +2,7 @@ import axios from "axios";
 
 import { ElNotification } from "element-plus";
 
+import { useLoginDialog, useLocalStorage } from "@/hooks";
 interface Options {
   configApi: string;
   responseCodeFn: any;
@@ -34,6 +35,10 @@ axiosInstance.interceptors.request.use(
     const { headers } = options;
 
     Object.keys(headers).forEach((header) => {
+      if (header === "Authorization") {
+        config.headers[header] =
+          headers[header] || `Bearer ${useLocalStorage("token")}`;
+      }
       config.headers[header] = headers[header];
     });
     return config;
@@ -41,7 +46,12 @@ axiosInstance.interceptors.request.use(
 
   // 失败请求拦截器
   (error) => {
-    throw new Error(error);
+    ElNotification({
+      title: "Error",
+      message: error.response.data,
+      type: "error",
+    });
+    // throw new Error(error);
   }
 );
 
@@ -53,14 +63,18 @@ axiosInstance.interceptors.response.use(
   },
 
   // 失败响应拦截器
-  (error) => {
-    // 失败时，默认抛出错误信息， todo: data -> amagi 配置的字段
-    ElNotification({
-      title: "Error",
-      message: error.response.data,
-      type: "error",
-    });
-    return Promise.reject(error);
+  async (error) => {
+    if (error.response.status === 401) {
+      // 失败时，默认抛出错误信息， todo: data -> amagi 配置的字段
+      ElNotification({
+        title: "Error",
+        message: error.response.data,
+        type: "error",
+      });
+      await useLoginDialog();
+    }
+
+    return Promise.resolve(error); // resolve 错误提示，以免红色屏幕警告
   }
 );
 

@@ -7,7 +7,7 @@
     <template #footer>
       <div class="dialog-footer" v-if="footer">
         <el-button @click="handleClose('cancel')">Cancel</el-button>
-        <el-button type="primary" @click="handleClose('confirm')">
+        <el-button type="info" @click="handleClose('confirm')">
           Confirm
         </el-button>
       </div>

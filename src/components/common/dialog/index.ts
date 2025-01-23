@@ -68,10 +68,14 @@ export function createDialog(options: Options): Promise<CloseType> {
         default: () =>
           typeof options.content === "string"
             ? h("div", options.content)
-            : h(
-                options.content as ReturnType<typeof defineComponent>,
-                options.slotProps
-              ),
+            : h(options.content as ReturnType<typeof defineComponent>, {
+                ...options.slotProps,
+                "onUpdate:visible": (visible: boolean, type: CloseType) => {
+                  // 赋予关闭弹窗的能力
+                  visible = !visible;
+                  onClose(type);
+                },
+              }),
       }
     );
 
