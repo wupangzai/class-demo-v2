@@ -1,19 +1,10 @@
 <template>
-  <el-button plain @click="dialogVisible = true">
-    Click to open the Dialog
-  </el-button>
-
-  <el-dialog
-    v-model="dialogVisible"
-    title="Tips"
-    width="500"
-    :before-close="handleClose"
-  >
-    <span>This is a message</span>
+  <el-dialog v-model="props.visible" title="Tips" width="500">
+    <slot></slot>
     <template #footer>
-      <div class="dialog-footer">
-        <el-button @click="dialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="dialogVisible = false">
+      <div class="dialog-footer" v-if="footer">
+        <el-button @click="handleClose('cancel')">Cancel</el-button>
+        <el-button type="primary" @click="handleClose('confirm')">
           Confirm
         </el-button>
       </div>
@@ -22,18 +13,19 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { ElMessageBox } from "element-plus";
+import { ElButton, ElDialog } from "element-plus";
+import { CloseType } from "@/components/common/dialog/index";
 
-const dialogVisible = ref(false);
+const props = defineProps({
+  visible: Boolean,
+  footer: Boolean,
+});
 
-const handleClose = (done: () => void) => {
-  ElMessageBox.confirm("Are you sure to close this dialog?")
-    .then(() => {
-      done();
-    })
-    .catch(() => {
-      // catch error
-    });
-};
+const emits = defineEmits<{
+  (e: "update:visible", value: boolean, type: CloseType): void;
+}>();
+
+function handleClose(type: CloseType) {
+  emits("update:visible", false, type);
+}
 </script>

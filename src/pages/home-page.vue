@@ -5,12 +5,11 @@
 <script lang="ts" setup>
 import { onMounted } from "vue";
 import { API } from "@/api";
-import customDialog from "@/components/common/dialog/custom-dialog.vue";
+import { useDialog } from "@/components/common/dialog";
+import Login from "@/components/login/index.vue";
 
 onMounted(async () => {
   const data = await API.getMetaBaseCourseArrange("next1days");
-  console.log(data);
-  console.log("customDialog", customDialog);
 });
 </script>
 
