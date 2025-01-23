@@ -12,15 +12,17 @@ import { useDialog } from "@/components/common/dialog";
 
 onMounted(async () => {
   const data = await API.getMetaBaseCourseArrange("next1days");
+});
+
+function fn1() {
   const res = useDialog({
     content: Login,
     dialogProps: {
+      title: "登录",
       footer: true,
     },
   });
-});
-
-function fn1() {}
+}
 </script>
 
 <style lang="less">

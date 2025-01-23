@@ -12,9 +12,15 @@ import {
   createVNode,
   h,
   render,
+  App,
 } from "vue";
 // 弹窗模板组件
 import customDialog from "@/components/common/dialog/custom-dialog.vue";
+
+let app: App;
+export function initApp(rootApp: App) {
+  app = rootApp;
+}
 
 // 是否为 VNode 节点
 const isVNode = (node: unknown) => {
@@ -48,7 +54,7 @@ export function createDialog(options: Options): Promise<CloseType> {
     };
 
     const vnode = createVNode(
-      createVNode(customDialog, { footer: options.dialogProps.footer }),
+      createVNode(customDialog, { ...options.dialogProps }),
       {
         visible: true,
         onClose,
@@ -68,6 +74,9 @@ export function createDialog(options: Options): Promise<CloseType> {
               ),
       }
     );
+
+    vnode.appContext = app._context; // 将实例指向全局的rootApp, 获取全局注册的插件，如elementplus，router
+
     // 渲染到容器
     render(vnode, container);
   });

@@ -1,5 +1,8 @@
 <template>
-  <el-dialog v-model="props.visible" title="Tips" width="500">
+  <el-dialog v-model="props.visible" width="500">
+    <template #header>
+      <span class="custom-header">{{ props.title }}</span>
+    </template>
     <slot></slot>
     <template #footer>
       <div class="dialog-footer" v-if="footer">
@@ -13,10 +16,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ElButton, ElDialog } from "element-plus";
 import { CloseType } from "@/components/common/dialog/index";
 
 const props = defineProps({
+  title: String,
   visible: Boolean,
   footer: Boolean,
 });
@@ -29,3 +32,9 @@ function handleClose(type: CloseType) {
   emits("update:visible", false, type);
 }
 </script>
+
+<style lang="less" scoped>
+.custom-header {
+  color: var(--el-color-info);
+}
+</style>
