@@ -65,16 +65,16 @@ axiosInstance.interceptors.response.use(
 
   // 失败响应拦截器
   async (error) => {
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       // 失败时，默认抛出错误信息， todo: data -> amagi 配置的字段
       ElNotification({
         title: "Error",
         message: error.response.data,
         type: "error",
       });
-      await useLoginDialog();
+      const res = await useLoginDialog();
+      res === "confirm" && window.location.reload();
     }
-
     return Promise.resolve(error); // resolve 错误提示，以免红色屏幕警告
   }
 );

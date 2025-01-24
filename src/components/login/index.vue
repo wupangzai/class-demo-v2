@@ -43,7 +43,7 @@ const ruleForm = reactive({
 });
 
 const emits = defineEmits<{
-  (e: "update:visible", value: boolean): void;
+  (e: "update:visible", value: boolean, type: CloseType): void;
 }>();
 
 function isEmpty(value: string) {
@@ -74,7 +74,7 @@ const rules = reactive<FormRules<typeof ruleForm>>({
 
 function handleClose(type: CloseType) {
   const value = type === "confirm";
-  emits("update:visible", value);
+  emits("update:visible", value, type);
 }
 
 function submit() {

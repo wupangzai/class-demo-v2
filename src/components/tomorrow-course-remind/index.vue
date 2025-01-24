@@ -59,11 +59,13 @@ onMounted(async () => {
   .card-container {
     height: 100%;
     overflow-y: auto;
+
     // padding-right: 40px;
     padding-left: 20px;
     .remind-container {
       display: flex;
       flex-wrap: wrap;
+
       // justify-content: center;
       gap: 10px;
 
