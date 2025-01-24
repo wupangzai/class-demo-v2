@@ -22,6 +22,7 @@ const options: Options = {
   responseErrorCodeFn: () => {},
   headers: {
     "X-Requested-With": "XMLHttpRequest",
+    Authorization: "",
   },
   message: function () {},
 };
@@ -35,11 +36,11 @@ axiosInstance.interceptors.request.use(
     const { headers } = options;
 
     Object.keys(headers).forEach((header) => {
+      config.headers[header] = headers[header];
       if (header === "Authorization") {
         config.headers[header] =
-          headers[header] || `Bearer ${useLocalStorage("token")}`;
+          config.headers[header] || `Bearer ${useLocalStorage("token").value}`;
       }
-      config.headers[header] = headers[header];
     });
     return config;
   },

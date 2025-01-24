@@ -52,3 +52,24 @@ export async function validateToken() {
   );
   return res;
 }
+
+/**
+ *
+ * @param date e.g. 2025-01-24
+ */
+export async function getCRMRoomArrangement(date: string) {
+  const res = await http.get("/crm/course-schedulings/all", {
+    date,
+    sort: "start",
+    includes: [
+      "classroom",
+      "teacher",
+      "class",
+      "classItem",
+      "classroomSchedule",
+      "classAdviser",
+    ],
+    study_center_id: 17,
+  });
+  return res;
+}

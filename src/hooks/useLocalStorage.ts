@@ -10,7 +10,6 @@ export function useLocalStorage<T = any>(key: string, passValue: any = "") {
   };
 
   const initValue = keyValue && !passValue ? keyValue : passValue;
-  console.log("initValue", initValue);
 
   updateValue(initValue);
 

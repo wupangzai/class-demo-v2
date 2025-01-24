@@ -29,7 +29,6 @@ export default defineComponent({
     // icon --control collapse
     const collapse = ref(false);
     const iconStyle = computed(() => {
-      console.log(collapse.value);
       return {
         marginLeft: collapse.value ? "-8px" : "-13px",
       };

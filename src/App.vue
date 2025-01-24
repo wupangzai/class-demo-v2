@@ -3,7 +3,9 @@
     <top-bar />
     <div class="home-content">
       <nav-bar />
-      <router-view />
+      <div class="router-content">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
@@ -16,12 +18,16 @@ import TopBar from "@/components/top-bar/top-bar.vue";
 <style lang="less">
 .home-page {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
 
   .home-content {
     display: flex;
+
+    .router-content {
+      width: 100%;
+      padding: 10px 0px;
+    }
   }
 }
 </style>

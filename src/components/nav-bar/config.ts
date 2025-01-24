@@ -37,7 +37,7 @@ const menu = [
     icon: Position,
     title: "上课提醒",
     subMenu: [],
-    path: "/todo",
+    path: "/tomorrow-course-remind",
   },
   {
     index: "3",
