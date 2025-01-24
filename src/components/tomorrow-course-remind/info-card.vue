@@ -3,15 +3,27 @@
     <el-card style="max-width: 480px" class="card">
       <template #header>
         <div class="card-header">
-          <span>Card name</span>
+          <span>{{ props.course.stuOrClass }}</span>
         </div>
       </template>
-      <p v-for="o in 4" :key="o" class="text item">{{ "List item " + o }}</p>
     </el-card>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+interface Course {
+  time: string;
+  subject: string;
+  stuOrClass: string;
+  teacher: string;
+  classroom: string;
+  isOnline: string;
+}
+interface Props {
+  course: any;
+}
+const props = defineProps<Props>();
+</script>
 
 <style lang="less">
 .remind-info-card {

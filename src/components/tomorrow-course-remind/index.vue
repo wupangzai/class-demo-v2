@@ -19,6 +19,7 @@
         <remind-info-card
           class="info-card-item"
           v-for="(course, index) in renderList"
+          :course="course"
           :key="index"
         ></remind-info-card>
       </div>
@@ -32,6 +33,15 @@ import { defaultCA, CANameMapList } from "@/common/const";
 import RemindInfoCard from "@/components/tomorrow-course-remind/info-card.vue";
 import { useMetaBaseData } from "@/hooks";
 
+interface Course {
+  time: string;
+  subject: string;
+  stuOrClass: string;
+  teacher: string;
+  classroom: string;
+  isOnline: string;
+}
+
 const CA = ref(defaultCA.CName);
 
 const renderList = ref<Record<string, any>[]>([{}]);
@@ -44,10 +54,10 @@ onMounted(async () => {
 <style lang="less">
 .tomorrow-course-remind {
   width: calc(100% - 7px);
-  height: 90vh;
+  height: 85vh;
 
   .card-container {
-    height: 90%;
+    height: 100%;
     overflow-y: auto;
     // padding-right: 40px;
     padding-left: 20px;
