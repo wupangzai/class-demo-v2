@@ -3,9 +3,12 @@ import dayjs from "dayjs";
 import { API, APICONST } from "@/api";
 import { CONST, UTILS } from "@/common";
 
-export async function useMetaBaseData(CAName: CONST.Name) {
+export async function useMetaBaseData(
+  CAName: CONST.Name,
+  date: string = APICONST.metaBaseMap.NEXTDAY
+) {
   const value = ref<Record<any, any>[]>([{}]);
-  const res = await API.getMetaBaseCourseArrange(APICONST.metaBaseMap.NEXTDAY);
+  const res = await API.getMetaBaseCourseArrange(date);
 
   const listAfterFilterByCA = res.filter(
     (courseItem: any) => courseItem["助教"] === CAName
@@ -17,7 +20,6 @@ export async function useMetaBaseData(CAName: CONST.Name) {
   );
 
   const crmRoomArrangement = await useCRMRoomArrangement();
-  console.log("[  crmRoomArrangement] >", crmRoomArrangement);
   if (crmRoomArrangement.value) {
     value.value = listAfterSortedByName.map((item: any, index: number) => {
       let classroom;
@@ -58,11 +60,17 @@ export async function useMetaBaseData(CAName: CONST.Name) {
   return value;
 }
 
-export async function useCRMRoomArrangement() {
+/**
+ *
+ * @param date YYYY-MM-DD
+ * @returns
+ */
+export async function useCRMRoomArrangement(
+  date = dayjs().add(1, "days").format("YYYY-MM-DD")
+) {
   const value = ref<Record<any, any>[]>([{}]);
 
-  const nextDay = dayjs().add(1, "days").format("YYYY-MM-DD");
-  const res = await API.getCRMRoomArrangement(nextDay);
+  const res = await API.getCRMRoomArrangement(date);
 
   if (res) {
     value.value = res.list;
