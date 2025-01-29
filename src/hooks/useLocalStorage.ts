@@ -1,9 +1,14 @@
 import { ref, watch } from "vue";
+import { UTILS } from "@/common";
 
 export function useLocalStorage<T = any>(key: string, passValue: any = "") {
   const value = ref<any>("");
 
-  const keyValue = JSON.parse(window.localStorage.getItem(key)!);
+  const rawKeyValue = window.localStorage.getItem(key)!;
+
+  const keyValue = UTILS.isValidJSON(rawKeyValue)
+    ? JSON.parse(rawKeyValue)
+    : rawKeyValue;
 
   const updateValue = (newValue: any) => {
     value.value = newValue;
