@@ -1,11 +1,7 @@
 <template>
-  <div class="class-arrangement">
+  <div class="class-arrangement" v-custom-loading="loading">
     <Control v-model="date" ref="controlRef"></Control>
-    <div
-      class="content-container"
-      v-if="controlRef?.computedDate"
-      v-custom-loading="loading"
-    >
+    <div class="content-container" v-if="controlRef?.computedDate">
       <arrangement-content-item
         v-for="(date, index) in controlRef.computedDate"
         :date="date"

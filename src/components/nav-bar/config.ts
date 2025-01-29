@@ -45,7 +45,7 @@ const menu = [
     icon: Document,
     title: "课程反馈",
     subMenu: [],
-    path: "/todo",
+    path: "/course-record",
   },
   {
     index: "4",

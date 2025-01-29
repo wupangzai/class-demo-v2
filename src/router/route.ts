@@ -13,6 +13,10 @@ const routes: RouteRecordRaw[] = [
     path: "/class-arrangement",
     component: () => import("@/components/class-arrangement/index.vue"),
   },
+  {
+    path: "/course-record",
+    component: () => import("@/components/course-record/index.vue"),
+  },
 ];
 
 export default routes;

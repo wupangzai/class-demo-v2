@@ -74,7 +74,9 @@ function changeLoading() {
 
 onMounted(async () => {
   changeLoading();
-  renderList.value = addIsCopy((await useMetaBaseData(CA.value)).value);
+  renderList.value = addIsCopy(
+    (await useMetaBaseData(CA.value, "past1weeks")).value
+  );
   changeLoading();
 });
 </script>
