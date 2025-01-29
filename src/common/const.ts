@@ -11,16 +11,16 @@ export const defaultCA: CANameMap = {
 };
 export const CANameMapList: CANameMap[] = [
   {
-    CName: "吴彬",
-    EName: "Anan",
-  },
-  {
     CName: "董洁",
     EName: "Jade",
   },
   {
     CName: "王南飞",
     EName: "Winnie",
+  },
+  {
+    CName: "吴彬",
+    EName: "Anan",
   },
   {
     CName: "刘维倩",

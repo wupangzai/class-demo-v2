@@ -53,7 +53,7 @@ const menu = [
     icon: Histogram,
     title: "课表概览",
     subMenu: [],
-    path: "/todo",
+    path: "/class-arrangement",
   },
   {
     index: "5",

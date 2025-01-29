@@ -78,3 +78,25 @@ export async function useCRMRoomArrangement(
 
   return value;
 }
+
+export function formatPropertyAndCA(List: any, CA: string) {
+  const listAfterFilterByCA = List?.filter(
+    (courseItem: any) => courseItem["助教"] === CA
+  );
+
+  const listAfterSortedByName = UTILS.sortByPropertyOrder(
+    listAfterFilterByCA,
+    "学生/班级"
+  );
+
+  return listAfterSortedByName.map((item) => {
+    return {
+      time: `${dayjs(item.start).format("HH:mm")}-${dayjs(item.end).format(
+        "HH:mm"
+      )}`,
+      subject: item["课程"],
+      stuOrClass: item["学生/班级"],
+      teacher: item["教师"],
+    };
+  });
+}

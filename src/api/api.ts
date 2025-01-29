@@ -3,7 +3,7 @@ import { http } from "@/packages/axios/common";
 // 获取MetaBase中的课程数据
 export async function getMetaBaseCourseArrange(
   date: string,
-  place?: ["半海人广旗舰"]
+  place = ["半海人广旗舰"]
 ) {
   const data = await http.get("/myclass/json", {
     parameters: JSON.stringify([

@@ -23,10 +23,12 @@ import TopBar from "@/components/top-bar/top-bar.vue";
 
   .home-content {
     display: flex;
+    height: calc(100vh - 64px); // fix
 
     .router-content {
       width: 100%;
       padding: 10px 0px;
+      overflow: hidden;
     }
   }
 }

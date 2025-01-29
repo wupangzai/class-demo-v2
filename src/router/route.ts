@@ -9,6 +9,10 @@ const routes: RouteRecordRaw[] = [
     path: "/tomorrow-course-remind",
     component: () => import("@/components/tomorrow-course-remind/index.vue"),
   },
+  {
+    path: "/class-arrangement",
+    component: () => import("@/components/class-arrangement/index.vue"),
+  },
 ];
 
 export default routes;
