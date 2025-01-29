@@ -6,6 +6,7 @@
           <card-header
             v-model="CA"
             :CANameMapList="props.CANameMapList"
+            @selectedValueChange="selectedValueChange"
           ></card-header>
         </slot>
       </template>
@@ -27,6 +28,14 @@ interface Props {
 const props = defineProps<Props>();
 
 const CA = ref(CONST.defaultCA.CName);
+
+const emits = defineEmits<{
+  (e: "selectedValueChange", value: CONST.Name): void;
+}>();
+
+function selectedValueChange(value: CONST.Name) {
+  emits("selectedValueChange", value);
+}
 
 defineExpose({
   CA,

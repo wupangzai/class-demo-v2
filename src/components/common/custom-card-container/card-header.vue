@@ -2,7 +2,7 @@
   <div class="custom-card-header">
     <div class="card-header">
       <el-tag type="info" size="large">CA: </el-tag
-      ><el-select class="select" v-model="model">
+      ><el-select class="select" v-model="model" @change="change">
         <el-option
           v-for="ca in props.CANameMapList"
           :key="ca.CName"
@@ -26,6 +26,14 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const model = defineModel({ type: String });
+
+const emits = defineEmits<{
+  (e: "selectedValueChange", value: CONST.Name): void;
+}>();
+
+function change(newValue: CONST.Name) {
+  emits("selectedValueChange", newValue);
+}
 </script>
 
 <style lang="less">

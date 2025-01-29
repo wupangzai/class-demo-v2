@@ -1,30 +1,22 @@
 <template>
   <div class="tomorrow-course-remind">
-    <el-card class="card-container" v-custom-loading="loading">
-      <template #header>
-        <div class="card-header">
-          <el-tag type="info" size="large">CA: </el-tag
-          ><el-select class="select" v-model="CA" @change="change">
-            <el-option
-              v-for="ca in CONST.CANameMapList"
-              :key="ca.CName"
-              :value="ca.CName"
-              :label="ca.CName"
-            >
-            </el-option>
-          </el-select>
+    <custom-card-container
+      v-custom-loading="loading"
+      ref="cardContainerRef"
+      @selected-value-change="change"
+    >
+      <template #content>
+        <div class="remind-container">
+          <remind-info-card
+            class="info-card-item"
+            v-model="course.isCopy"
+            v-for="(course, index) in renderList"
+            :course="course"
+            :key="index"
+          ></remind-info-card>
         </div>
       </template>
-      <div class="remind-container">
-        <remind-info-card
-          class="info-card-item"
-          v-model="course.isCopy"
-          v-for="(course, index) in renderList"
-          :course="course"
-          :key="index"
-        ></remind-info-card>
-      </div>
-    </el-card>
+    </custom-card-container>
   </div>
 </template>
 
@@ -35,6 +27,12 @@ import RemindInfoCard from "@/components/tomorrow-course-remind/info-card.vue";
 import { useMetaBaseData } from "@/hooks";
 import { ElNotification } from "element-plus";
 
+import CustomCardContainer from "@/components/common/custom-card-container/index.vue";
+
+const cardContainerRef = ref<InstanceType<typeof CustomCardContainer> | null>(
+  null
+);
+
 interface Course {
   time: string;
   subject: string;
@@ -44,8 +42,6 @@ interface Course {
   isOnline: string;
   isCopy: boolean;
 }
-
-const CA = ref(CONST.defaultCA.CName);
 
 const renderList = ref<Course[]>();
 
@@ -74,9 +70,11 @@ function changeLoading() {
 
 onMounted(async () => {
   changeLoading();
-  renderList.value = addIsCopy(
-    (await useMetaBaseData(CA.value, "past1weeks")).value
-  );
+  if (cardContainerRef.value) {
+    renderList.value = addIsCopy(
+      (await useMetaBaseData(cardContainerRef.value?.CA, "past1weeks")).value
+    );
+  }
   changeLoading();
 });
 </script>
