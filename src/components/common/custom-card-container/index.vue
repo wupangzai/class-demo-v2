@@ -54,6 +54,7 @@ defineExpose({
     .el-card__body {
       height: 100%;
       overflow-y: auto;
+      padding-bottom: 80px;
     }
   }
 }

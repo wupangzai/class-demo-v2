@@ -48,6 +48,10 @@ function getText(item: any) {
     return "";
   }
 
+  if (key === "subject") {
+    return `${props.course.subject}@${props.course.teacher}`;
+  }
+
   if (key === "address") {
     return item.address;
   }
@@ -78,7 +82,7 @@ async function handleCopy() {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .remind-info-card {
   width: 350px;
 
@@ -88,7 +92,7 @@ async function handleCopy() {
 
   .card {
     width: 400px;
-    height: 320px;
+    height: 330px;
 
     .card-header {
       display: flex;

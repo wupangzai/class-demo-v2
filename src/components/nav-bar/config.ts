@@ -61,7 +61,7 @@ const menu = [
     icon: Money,
     title: "绩效统计",
     subMenu: [],
-    path: "/todo",
+    path: "/wage-calc",
   },
   {
     index: "6",

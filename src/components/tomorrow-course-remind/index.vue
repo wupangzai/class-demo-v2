@@ -72,7 +72,7 @@ onMounted(async () => {
   changeLoading();
   if (cardContainerRef.value) {
     renderList.value = addIsCopy(
-      (await useMetaBaseData(cardContainerRef.value?.CA, "past1weeks")).value
+      (await useMetaBaseData(cardContainerRef.value?.CA)).value
     );
   }
   changeLoading();
@@ -104,17 +104,5 @@ onMounted(async () => {
       }
     }
   }
-
-  .card-header {
-    .select {
-      width: 150px;
-      margin-left: 8px;
-    }
-  }
-}
-.card-container > .el-card__body {
-  height: 100%;
-  overflow-y: auto; /* 允许垂直滚动 */
-  padding-bottom: 80px;
 }
 </style>

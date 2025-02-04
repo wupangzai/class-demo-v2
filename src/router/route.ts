@@ -17,6 +17,10 @@ const routes: RouteRecordRaw[] = [
     path: "/course-record",
     component: () => import("@/components/course-record/index.vue"),
   },
+  {
+    path: "/wage-calc",
+    component: () => import("@/components/wage-calc/index.vue"),
+  },
 ];
 
 export default routes;
