@@ -8,6 +8,7 @@
             :CANameMapList="props.CANameMapList"
             @selectedValueChange="selectedValueChange"
           ></card-header>
+          <slot name="other-option"></slot>
         </slot>
       </template>
       <div class="content-container">

@@ -97,7 +97,7 @@ onMounted(async () => {
         align-items: center;
         justify-content: center;
         flex: 0 1 33%;
-        margin: 10px 0px;
+        margin: 5px 0px;
         @itemWidth: 400px;
         @itemHeight: 320px;
         @lineCount: 3;

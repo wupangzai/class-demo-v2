@@ -4,7 +4,7 @@
 
 <script lang="ts" setup></script>
 
-<style lang="less">
+<style lang="less" scoped>
 .content-container {
   width: 100%;
   height: 100%;
