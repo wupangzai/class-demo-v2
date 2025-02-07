@@ -23,6 +23,9 @@
         end-placeholder="End date"
       />
     </div>
+    <div class="option-item">
+      <el-button @click="handle" type="primary">Confirm</el-button>
+    </div>
   </div>
 </template>
 
@@ -33,7 +36,15 @@ const modelLevel = defineModel<Level>("level");
 
 const modelDate = defineModel("date");
 
+const emits = defineEmits<{
+  (e: "handle"): void;
+}>();
+
 function change() {}
+
+function handle() {
+  emits("handle");
+}
 </script>
 
 <style lang="less" scoped>

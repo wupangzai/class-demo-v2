@@ -6,7 +6,8 @@ import { CONST, UTILS } from "@/common";
 export async function useMetaBaseData(
   CAName: CONST.Name,
   date: string = APICONST.metaBaseMap.NEXTDAY,
-  useCRMRoom = true
+  useCRMRoom = true,
+  useSort = true
 ) {
   const value = ref<Record<any, any>[]>([{}]);
   const res = await API.getMetaBaseCourseArrange(date);
@@ -15,10 +16,9 @@ export async function useMetaBaseData(
     (courseItem: any) => courseItem["助教"] === CAName
   );
 
-  const listAfterSortedByName = UTILS.sortByPropertyOrder(
-    listAfterFilterByCA,
-    "学生/班级"
-  );
+  const listAfterSortedByName = useSort
+    ? UTILS.sortByPropertyOrder(listAfterFilterByCA, "学生/班级")
+    : listAfterFilterByCA;
 
   const crmRoomArrangement = useCRMRoom
     ? await useCRMRoomArrangement()
@@ -56,6 +56,8 @@ export async function useMetaBaseData(
         time: `${dayjs(item.start).format("HH:mm")}-${dayjs(item.end).format(
           "HH:mm"
         )}`,
+        rawStartTime: item.start,
+        rawEndTime: item.end,
         subject: item["课程"],
         stuOrClass: item["学生/班级"],
         teacher: item["教师"],

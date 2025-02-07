@@ -80,6 +80,7 @@ function change(value: boolean, index: number) {
 
   .card {
     min-width: 480px;
+    max-height: 500px;
   }
   .info-item {
     margin-bottom: 10px;
