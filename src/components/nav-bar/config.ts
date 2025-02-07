@@ -67,9 +67,9 @@ const menu = [
     index: "6",
     component: "el-menu-item",
     icon: User,
-    title: "CRM",
+    title: "班级表格",
     subMenu: [],
-    path: "/todo",
+    path: "/class-form",
   },
   {
     index: "7",

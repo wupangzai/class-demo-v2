@@ -73,3 +73,40 @@ export async function getCRMRoomArrangement(date: string) {
   });
   return res;
 }
+
+/**
+ *
+ * @param className 班级名称
+ * @returns 一个数组
+ */
+export async function getCRMClassList(className: string) {
+  const res = await http.get("/crm/class-list", {
+    queryValue: className,
+    start_before: "",
+    start_after: "",
+    not_full: "",
+    ["study_centers[]"]: 17,
+    large_than_three: false,
+    order: "start_asc",
+    production_type: "class",
+    sort: "-created_at",
+    skip_ac: true,
+    page: 1,
+  });
+
+  return res;
+}
+
+export async function getCRMCourseDetail(courseId: string) {
+  const res = await http.get(`/crm/classes/${courseId}`, {
+    id: courseId,
+    includes: [
+      "courseSchedulings",
+      "classStudents",
+      "classItems.product",
+      "classItems.courseSchedulings",
+    ],
+  });
+
+  return res;
+}
