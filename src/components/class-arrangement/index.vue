@@ -89,9 +89,10 @@ watch(
 .class-arrangement {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+
   .content-container {
     width: calc(100% - 7px);
+    height: calc(100vh - 64px - 40px - 40px);
     display: flex;
     margin-top: 8px;
     overflow: auto;
