@@ -60,6 +60,7 @@ export default defineComponent({
             class="custom-menu"
             default-active="1-1"
             ref={menuRef}
+            unique-opened
           >
             {MenuConfig.map((menu) => {
               if (menu.component === "el-sub-menu") {

@@ -14,7 +14,7 @@ const menu = [
     index: "1",
     component: "el-sub-menu",
     icon: Operation,
-    title: "教室表相关",
+    title: "教室表 -- ",
     path: "",
     subMenu: [
       [
@@ -73,11 +73,29 @@ const menu = [
   },
   {
     index: "7",
-    component: "el-menu-item",
+    component: "el-sub-menu",
     icon: Search,
     title: "资料",
-    subMenu: [],
-    path: "/todo",
+    path: "",
+    subMenu: [
+      [
+        {
+          index: "7-1",
+          title: "剑桥雅思",
+          path: "/",
+        },
+        {
+          index: "7-2",
+          title: "开/结班测试",
+          path: "/todo",
+        },
+        {
+          index: "7-3",
+          title: "辅练资料",
+          path: "/todo",
+        },
+      ],
+    ],
   },
   {
     index: "8",
