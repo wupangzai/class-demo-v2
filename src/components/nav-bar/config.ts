@@ -82,17 +82,17 @@ const menu = [
         {
           index: "7-1",
           title: "剑桥雅思",
-          path: "/",
+          path: "/ielts-pastpaper",
         },
         {
           index: "7-2",
           title: "开/结班测试",
-          path: "/todo",
+          path: "/ielts-test",
         },
         {
           index: "7-3",
           title: "辅练资料",
-          path: "/todo",
+          path: "/ielts-assignment",
         },
       ],
     ],

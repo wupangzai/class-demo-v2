@@ -26,4 +26,5 @@ pnpm-debug.log*
 public/*.pdf
 public/*.mp3
 public/*.mp4
+public/*.m4a
 public/*.xlsx

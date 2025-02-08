@@ -25,6 +25,19 @@ const routes: RouteRecordRaw[] = [
     path: "/class-form",
     component: () => import("@/components/class-form/index.vue"),
   },
+  {
+    path: "/ielts-assignment",
+    component: () => import("@/components/ielts-assignment/assignment.vue"),
+  },
+  {
+    path: "/ielts-test",
+    component: () => import("@/components/ielts-assignment/ielts-test.vue"),
+  },
+  {
+    path: "/ielts-pastpaper",
+    component: () =>
+      import("@/components/ielts-assignment/ielts-pastpaper.vue"),
+  },
 ];
 
 export default routes;

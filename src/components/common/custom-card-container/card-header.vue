@@ -18,7 +18,7 @@
 <script lang="ts" setup>
 import { CONST } from "@/common";
 interface Props {
-  CANameMapList: typeof CONST.CANameMapList;
+  CANameMapList: typeof CONST.CANameMapList | undefined;
 }
 
 const props = withDefaults(defineProps<Props>(), {
