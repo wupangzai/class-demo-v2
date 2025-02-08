@@ -1,27 +1,49 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div class="home-page">
+    <top-bar />
+    <div class="home-content">
+      <nav-bar />
+      <div class="router-content">
+        <router-view v-slot="props">
+          <transition name="router-page" mode="out-in">
+            <component :is="props.Component"></component>
+          </transition>
+        </router-view>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-});
+<script lang="ts" setup>
+import NavBar from "@/components/nav-bar/nav-bar";
+import TopBar from "@/components/top-bar/top-bar.vue";
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="less">
+.home-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .home-content {
+    display: flex;
+    height: calc(100vh - 64px); // fix
+
+    .router-content {
+      width: 100%;
+      padding: 10px 0px;
+      overflow: hidden;
+    }
+  }
+}
+
+.router-page-enter-from,
+.router-page-leave-to {
+  opacity: 0;
+}
+
+.router-page-enter-active,
+.router-page-leave-active {
+  transition: opacity 0.3s ease;
 }
 </style>
