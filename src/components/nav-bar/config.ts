@@ -103,7 +103,7 @@ const menu = [
     icon: Edit,
     title: "Todo List",
     subMenu: [],
-    path: "/todo",
+    path: "/todo-list",
   },
 ];
 

@@ -38,6 +38,10 @@ const routes: RouteRecordRaw[] = [
     component: () =>
       import("@/components/ielts-assignment/ielts-pastpaper.vue"),
   },
+  {
+    path: "/todo-list",
+    component: () => import("@/components/todo-list/index.vue"),
+  },
 ];
 
 export default routes;

@@ -23,12 +23,13 @@ export function useLocalStorage<T = any>(key: string, passValue: any = "") {
     (newValue, oldValue) => {
       const newValueStringfy = JSON.stringify(newValue);
       const oldValueStringfy = JSON.stringify(oldValue);
-      if (oldValueStringfy !== newValueStringfy) {
-        window.localStorage.setItem(key, newValueStringfy);
-      }
+      // if (oldValueStringfy !== newValueStringfy) {
+      window.localStorage.setItem(key, newValueStringfy);
+      // }
     },
     {
       immediate: true,
+      deep: true,
     }
   );
 

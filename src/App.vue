@@ -4,7 +4,11 @@
     <div class="home-content">
       <nav-bar />
       <div class="router-content">
-        <router-view />
+        <router-view v-slot="props">
+          <transition name="router-page" mode="out-in">
+            <component :is="props.Component"></component>
+          </transition>
+        </router-view>
       </div>
     </div>
   </div>
@@ -31,5 +35,15 @@ import TopBar from "@/components/top-bar/top-bar.vue";
       overflow: hidden;
     }
   }
+}
+
+.router-page-enter-from,
+.router-page-leave-to {
+  opacity: 0;
+}
+
+.router-page-enter-active,
+.router-page-leave-active {
+  transition: opacity 0.3s ease;
 }
 </style>
