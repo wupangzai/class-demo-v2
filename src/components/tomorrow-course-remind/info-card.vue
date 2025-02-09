@@ -16,7 +16,7 @@
           <span>{{ item.label }}{{ item.key === "title" ? "" : ": " }}</span>
           <span>{{ getText(item) }}</span>
         </div>
-        <div class="info-item">以上是明天的课程提醒，请查收哈🌹</div>
+        <div class="info-item">以上是明天的课程提醒，请查收哈</div>
       </div>
     </el-card>
   </div>
