@@ -47,7 +47,7 @@ export async function useMetaBaseData(
             crmTime === metaBaseTime
           ) {
             classroom = crmDetail.class_room_name;
-            if (!classroom && crmDetail.title.includes("远程课")) {
+            if (crmDetail.title.includes("远程课")) {
               isOnline = true;
             }
           }

@@ -37,6 +37,8 @@ interface LoginData {
 }
 export async function LoginToCrm(LoginData: LoginData) {
   const res = await http.postJson("/crm/pub/login", {
+    altcha:
+      "eyJhbGdvcml0aG0iOiJTSEEtMjU2IiwiY2hhbGxlbmdlIjoiOTA0NTkyYmRiMjU2NWRjOGJkYjJjYTUzY2M1YzQ2YTQyZDg5ZTc1ZThiMDE0ZjBmZGY0YjE2MWMxN2FiZTMxYyIsIm51bWJlciI6NjExNywic2FsdCI6IjIxYTlhZTY3NDZlNmQwNzMyZGVjZThkNyIsInNpZ25hdHVyZSI6ImYyOThkNDEyZmUwYWQ0MjE3ZDQzMGE5MzkzNDQzZTZjNjE3YTViM2ExOWM0ZDg4NjNhMDQ4N2E1Yjc3YThkMTkiLCJ0b29rIjo1NzJ9",
     org_id: 5,
     ...LoginData,
   });

@@ -11,8 +11,17 @@
         <el-tag type="info">{{ getText(name.CName) }}</el-tag>
         <div v-for="course in getRenderList(name.CName)" class="item-info">
           <div>
-            <span>{{ course.time }}</span>
-            <span class="stu">{{ course.stuOrClass }}</span>
+            <el-tooltip
+              class="box-item"
+              effect="dark"
+              :content="course.subject"
+              placement="top"
+            >
+              <div>
+                <span>{{ course.time }}</span>
+                <span class="stu">{{ course.stuOrClass }}</span>
+              </div>
+            </el-tooltip>
           </div>
         </div>
       </div>

@@ -60,6 +60,8 @@ function getText(item: any) {
     return props.course[key] ? "线上" : "线下";
   }
 
+  console.log(props.course);
+
   return props.course[key];
 }
 
