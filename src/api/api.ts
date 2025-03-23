@@ -115,3 +115,25 @@ export async function getCRMCourseDetail(courseId: string) {
 
   return res;
 }
+
+// 获取学生信息，如id
+export async function getStudentInfo(studentName: string): Promise<any[]> {
+  const res = await http.get("/crm/api/v1/students.json", {
+    queryValue: studentName,
+  });
+
+  return res;
+}
+
+// 获取班级信息
+export async function getClassInfo(
+  classNo: string,
+  production_type = "class"
+): Promise<any[]> {
+  const res = await http.get("/crm/api/v1/class-names", {
+    production_type,
+    queryValue: classNo,
+  });
+
+  return res;
+}

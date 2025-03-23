@@ -63,6 +63,7 @@ export async function useMetaBaseData(
         teacher: item["教师"],
         classroom,
         isOnline,
+        isTypeEqualClass: item["顾问"] === "-",
       };
     });
   }

@@ -23,6 +23,7 @@ import { onMounted, ref, render, watch } from "vue";
 import CourseRecordContent from "@/components/course-record/course-record-content.vue";
 import { useLocalStorage, useMetaBaseData } from "@/hooks";
 import dayjs from "dayjs";
+import { API } from "@/api";
 
 const DAYS = ["Yesterday", "Today"];
 
@@ -94,6 +95,14 @@ watch(
   },
   { immediate: true }
 );
+
+onMounted(async () => {
+  const res = await API.getStudentInfo("许金睿东");
+  const res2 = await API.getClassInfo("25104");
+
+  console.log(res);
+  console.log(res2);
+});
 </script>
 
 <style lang="less" scoped>
