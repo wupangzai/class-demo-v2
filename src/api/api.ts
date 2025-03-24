@@ -117,7 +117,7 @@ export async function getCRMCourseDetail(courseId: string) {
 }
 
 // 获取学生信息，如id
-export async function getStudentInfo(studentName: string): Promise<any[]> {
+export async function getStudentInfo(studentName: string): Promise<any> {
   const res = await http.get("/crm/api/v1/students.json", {
     queryValue: studentName,
   });
@@ -129,11 +129,43 @@ export async function getStudentInfo(studentName: string): Promise<any[]> {
 export async function getClassInfo(
   classNo: string,
   production_type = "class"
-): Promise<any[]> {
+): Promise<any> {
   const res = await http.get("/crm/api/v1/class-names", {
     production_type,
     queryValue: classNo,
   });
 
+  return res;
+}
+
+// 获取反馈
+export async function getFeedBack(
+  id: string,
+  isClass: boolean,
+  start: string,
+  end: string
+) {
+  const res = await http.get("/crm/api/v1/course-schedulings", {
+    current: 1,
+    pageSize: 20,
+    [isClass ? "classId" : "student_id"]: id,
+    start,
+    end,
+    sort: "start",
+    page: 1,
+    per_page: 20,
+    includes: [
+      "teacher",
+      "classStudent",
+      "classItem",
+      "studyCenter",
+      "classroom",
+      "courseStudent",
+      "courseSignin",
+      "CourseRecords",
+      "",
+    ],
+    no_preview: true,
+  });
   return res;
 }

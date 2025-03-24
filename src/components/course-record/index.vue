@@ -1,5 +1,5 @@
 <template>
-  <div class="course-record">
+  <div class="course-record" v-custom-loading="loading">
     <custom-card-container ref="cardContainerRef">
       <template #content>
         <div class="record-content-container">
@@ -24,6 +24,7 @@ import CourseRecordContent from "@/components/course-record/course-record-conten
 import { useLocalStorage, useMetaBaseData } from "@/hooks";
 import dayjs from "dayjs";
 import { API } from "@/api";
+import { get } from "lodash";
 
 const DAYS = ["Yesterday", "Today"];
 
@@ -58,8 +59,41 @@ function addCheckAttribute(List: any) {
   });
 }
 
+async function getstuOrClassId(info: any) {
+  const res = info.isTypeEqualClass
+    ? await API.getClassInfo(info.stuOrClass)
+    : await API.getStudentInfo(info.stuOrClass);
+
+  return res.list[0].id;
+}
+
+let loading = ref(false);
+async function getFeedBackList(list: any, date: Date) {
+  const memberListWithNoRepeat = [
+    ...new Set(list.map((member: any) => member.stuOrClass)),
+  ] as any[];
+
+  let res = [];
+  for (const item of memberListWithNoRepeat) {
+    const infoObj = list.find((stu: any) => stu.stuOrClass === item);
+    const id = await getstuOrClassId(infoObj);
+    res.push(
+      ...(
+        await API.getFeedBack(
+          id,
+          infoObj.isTypeEqualClass,
+          dayjs(getDay(date)).format("YYYY-MM-DD 00:00:00"),
+          dayjs(getDay(date)).format("YYYY-MM-DD 23:59:59")
+        )
+      ).list
+    );
+  }
+  return res;
+}
+
 const renderList = ref<Record<string, any>>({});
 async function initComponentData() {
+  loading.value = true;
   const CA = cardContainerRef.value?.CA;
   if (CA) {
     const yesterday = getDay("Yesterday");
@@ -78,6 +112,37 @@ async function initComponentData() {
       [yesterday]: localData.value?.[yesterday] ?? yesterdayRecord,
       [today]: localData.value?.[today] ?? todayRecord,
     };
+
+    const dayTools = [
+      { date: yesterday, txt: "Yesterday" as Date },
+      { date: today, txt: "Today" as Date },
+    ];
+
+    const feedBackInfoList: any[] = [];
+    for (const dayInfo of dayTools) {
+      feedBackInfoList.push(
+        await getFeedBackList(renderList.value[dayInfo.date], dayInfo.txt)
+      );
+    }
+
+    console.log("feedBackInfoList", feedBackInfoList);
+
+    const keys = Object.keys(renderList.value);
+    keys.forEach((key, index) => {
+      renderList.value[key].forEach((listItem: any) => {
+        listItem.feedBack = feedBackInfoList[index].find(
+          (feedBackInfo: any) => {
+            return (
+              feedBackInfo.object_name === listItem.stuOrClass &&
+              dayjs(listItem.rawStartTime).format("YYYY-MM-DD hh:mm:ss") ===
+                dayjs(feedBackInfo.start).format("YYYY-MM-DD hh:mm:ss")
+            );
+          }
+        );
+      });
+    });
+    console.log(renderList.value);
+    loading.value = false;
   }
 }
 
@@ -95,14 +160,6 @@ watch(
   },
   { immediate: true }
 );
-
-onMounted(async () => {
-  const res = await API.getStudentInfo("许金睿东");
-  const res2 = await API.getClassInfo("25104");
-
-  console.log(res);
-  console.log(res2);
-});
 </script>
 
 <style lang="less" scoped>
