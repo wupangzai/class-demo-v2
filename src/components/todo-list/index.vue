@@ -38,20 +38,25 @@
             placeholder="请输入内容"
             @change="onblur(index)"
           ></el-input>
-          <div>
-            <span style="font-size: 12px; color: #ccc; padding-right: 5px">{{
-              task.createTime
-            }}</span>
-            <i
+          <div class="icon">
+            <div
+              style="width: 120px; font-size: 12px; color: #ccc; padding: 0 5px"
+            >
+              {{ task.createTime }}
+            </div>
+            <el-icon
               class="el-icon-edit"
-              style="color: red; cursor: pointer; padding: 0 5px"
+              style="color: red; cursor: pointer"
               @click="editTask(index)"
-            ></i>
-            <i
+              ><EditPen
+            /></el-icon>
+
+            <el-icon
               class="el-icon-delete"
               style="color: red; cursor: pointer"
               @click="deleteTask(index)"
-            ></i>
+              ><Delete
+            /></el-icon>
           </div>
         </div>
       </div>
@@ -64,6 +69,7 @@ import { useLocalStorage } from "@/hooks";
 import dayjs from "dayjs";
 import { ElNotification } from "element-plus";
 import { onMounted, ref, watch } from "vue";
+import { EditPen, Delete, Edit } from "@element-plus/icons-vue";
 
 const inputValue = ref("");
 const renderValue = useLocalStorage("todoList").value
@@ -164,6 +170,11 @@ function deleteAllTask() {
       text-decoration: line-through;
       color: #ccc;
     }
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
   }
 }
 </style>

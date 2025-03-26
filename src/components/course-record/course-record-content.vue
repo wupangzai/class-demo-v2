@@ -24,6 +24,11 @@
                 {{ listItem.subject }}
               </span></el-tag
             >
+            <el-tag
+              style="margin-left: 10px"
+              :type="getFeedBackTagType(listItem.feedBack?.is_feedback_text)"
+              >{{ listItem.feedBack?.is_feedback_text }}</el-tag
+            >
           </el-checkbox>
           <el-icon class="icon" @click="() => handleCopy(listItem.stuOrClass)"
             ><CopyDocument
@@ -50,6 +55,10 @@ const { copy } = useClipboard();
 
 function getTagType() {
   return props.dayOfWeek === "Yesterday" ? "primary" : "warning";
+}
+
+function getFeedBackTagType(type: string) {
+  return type === "已填写" ? "success" : "danger";
 }
 
 function handleCopy(text: string) {

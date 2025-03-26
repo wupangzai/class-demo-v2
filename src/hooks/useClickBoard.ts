@@ -1,5 +1,14 @@
 import { onUnmounted } from "vue";
 
+function fallbackCopy(text: any) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+}
+
 /**
  * 复制工具 Hook
  */
@@ -30,15 +39,20 @@ export function useClipboard() {
 
         const content = getContent(target); // 获取待复制的内容
 
-        // 使用现代的 Clipboard API
-        navigator.clipboard
-          .writeText(content)
-          .then(() => {
-            resolve(true); // 成功
-          })
-          .catch(() => {
-            reject(false); // 失败
-          });
+        if (navigator.clipboard && window.isSecureContext) {
+          // 使用现代的 Clipboard API
+          navigator.clipboard
+            .writeText(content)
+            .then(() => {
+              resolve(true); // 成功
+            })
+            .catch(() => {
+              reject(false); // 失败
+            });
+        } else {
+          fallbackCopy(content);
+          resolve(true); // 成功
+        }
       } catch (err) {
         reject(false); // 捕获异常
       }

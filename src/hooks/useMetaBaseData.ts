@@ -47,7 +47,7 @@ export async function useMetaBaseData(
             crmTime === metaBaseTime
           ) {
             classroom = crmDetail.class_room_name;
-            if (!classroom && crmDetail.title.includes("远程课")) {
+            if (crmDetail.title.includes("远程课")) {
               isOnline = true;
             }
           }
@@ -63,6 +63,7 @@ export async function useMetaBaseData(
         teacher: item["教师"],
         classroom,
         isOnline,
+        isTypeEqualClass: item["顾问"] === "-",
       };
     });
   }
