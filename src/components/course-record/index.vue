@@ -141,7 +141,7 @@ async function initComponentData() {
         );
       });
     });
-    console.log(renderList.value);
+    console.log("1", renderList.value);
     loading.value = false;
   }
 }

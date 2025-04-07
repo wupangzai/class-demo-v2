@@ -89,7 +89,11 @@ function change(value: boolean, index: number) {
 
   .card {
     min-width: 480px;
-    max-height: 500px;
+    height: 500px;
+    .el-card__body {
+      overflow-y: auto;
+      padding-bottom: 80px;
+    }
   }
   .info-item {
     margin-bottom: 10px;
