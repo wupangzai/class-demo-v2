@@ -134,6 +134,7 @@ function deleteAllTask() {
     height: 100%;
     padding-top: 0px;
     overflow-y: auto;
+    padding-bottom: 80px;
   }
 }
 </style>
