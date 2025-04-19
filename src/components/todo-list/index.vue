@@ -131,7 +131,7 @@ function deleteAllTask() {
 <style lang="less">
 .todo-list {
   .el-card__body {
-    height: 100%;
+    max-height: 100%;
     padding-top: 0px;
     overflow-y: auto;
     padding-bottom: 80px;
@@ -142,7 +142,7 @@ function deleteAllTask() {
 <style lang="less" scoped>
 .todo-list {
   width: 100%;
-  height: 95%;
+  // height: 95%;
   max-height: 95%;
   display: flex;
   //   align-items: center;
