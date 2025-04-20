@@ -33,6 +33,11 @@
           <el-icon class="icon" @click="() => handleCopy(listItem.stuOrClass)"
             ><CopyDocument
           /></el-icon>
+          <el-icon
+            class="icon"
+            @click="() => emitCheckFeedbackAction(listItem.feedBack.id)"
+            ><FullScreen
+          /></el-icon>
         </div>
       </div>
     </el-card>
@@ -41,7 +46,7 @@
 
 <script lang="ts" setup>
 import { useClipboard } from "@/hooks";
-import { CopyDocument } from "@element-plus/icons-vue";
+import { CopyDocument, FullScreen } from "@element-plus/icons-vue";
 import { ElNotification } from "element-plus";
 
 interface Props {
@@ -72,10 +77,15 @@ function handleCopy(text: string) {
 
 const emits = defineEmits<{
   (e: "update-check", value: boolean, day: string, index: number): void;
+  (e: "emit-check-feedback-action", id: number): void;
 }>();
 
 function change(value: boolean, index: number) {
   emits("update-check", value, props.day, index);
+}
+
+function emitCheckFeedbackAction(id: number) {
+  emits("emit-check-feedback-action", id);
 }
 </script>
 

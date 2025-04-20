@@ -10,21 +10,76 @@
             :dayOfWeek="day"
             :key="day"
             @update-check="updateCheck"
+            @emit-check-feedback-action="getFeedbackActionAndOpenDialog"
           ></course-record-content>
         </div>
       </template>
     </custom-card-container>
+
+    <!-- drawer -->
+
+    <el-drawer
+      v-model="drawer"
+      :title="drawerTitle"
+      @closed="closeDialog"
+      class="drawer"
+      size="60%"
+    >
+      <template #header>
+        <el-button @click="copyAsImage" type="warning">copy</el-button>
+      </template>
+      <div class="container-text" id="container-text">
+        <p class="title">本次课程内容：</p>
+        <div
+          v-html="dialogContent?.teaching_record?.content"
+          class="text-content"
+        ></div>
+        <p class="title">学生存在问题和对应解决方案：</p>
+        <div
+          class="text-content"
+          v-html="dialogContent?.teaching_record?.problem"
+        ></div>
+        <p class="title">本次课程作业：</p>
+        <div
+          v-html="dialogContent?.teaching_record?.homework"
+          class="text-content"
+        ></div>
+        <p class="title">上次作业情况:</p>
+        <span
+          v-html="dialogContent?.teaching_record?.last_homework"
+          class="text-content"
+        ></span>
+        <p class="title">下次课程内容:</p>
+        <span
+          v-html="dialogContent?.teaching_record?.next_content"
+          class="text-content"
+        ></span>
+        <p class="title">填写时间:</p>
+        <div
+          v-html="dialogContent?.teaching_record?.updated_at"
+          class="text-content"
+        ></div>
+      </div>
+    </el-drawer>
   </div>
 </template>
 
 <script lang="ts" setup>
 import CustomCardContainer from "@/components/common/custom-card-container/index.vue";
-import { onMounted, ref, render, watch } from "vue";
+import { computed, onMounted, ref, render, watch } from "vue";
 import CourseRecordContent from "@/components/course-record/course-record-content.vue";
 import { useLocalStorage, useMetaBaseData } from "@/hooks";
 import dayjs from "dayjs";
 import { API } from "@/api";
-import { get } from "lodash";
+import { marked } from "marked";
+import { ElNotification } from "element-plus";
+import html2canvas from "html2canvas";
+
+function useMarked(markdown: string) {
+  if (markdown) {
+    return marked(markdown);
+  }
+}
 
 const DAYS = ["Yesterday", "Today"];
 
@@ -153,6 +208,62 @@ function updateCheck(value: boolean, day: string, index: number) {
   useLocalStorage(`${CA}course-record`, renderList.value);
 }
 
+const drawer = ref(false);
+const dialogContent = ref<any>({});
+function closeDialog() {
+  drawer.value = false;
+  dialogContent.value = null;
+}
+async function getFeedbackActionAndOpenDialog(id: number) {
+  drawer.value = true;
+  const res = await API.getFeedBackDetailContent(id);
+  dialogContent.value = res;
+}
+
+const drawerTitle = computed(() => {
+  if (dialogContent.value) {
+    return `${dialogContent.value?.start}-----${dialogContent.value?.end}--${dialogContent.value?.teacher_name}`;
+  }
+});
+
+function resizeCanvas(canvas: any, targetWidth = 450) {
+  const scale = targetWidth / canvas.width;
+  const targetHeight = canvas.height * scale;
+
+  const resizedCanvas = document.createElement("canvas");
+  resizedCanvas.width = targetWidth;
+  resizedCanvas.height = targetHeight;
+
+  const ctx = resizedCanvas.getContext("2d") as any;
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+
+  ctx.drawImage(canvas, 0, 0, targetWidth, targetHeight);
+
+  return resizedCanvas;
+}
+
+async function copyAsImage() {
+  const element = document.getElementById("container-text") as HTMLElement;
+
+  const canvas = await html2canvas(element); // 保留透明背景
+  canvas.toBlob(async (blob: any) => {
+    try {
+      await navigator.clipboard.write([
+        new ClipboardItem({ "image/png": blob }),
+      ]);
+      ElNotification({
+        title: "Tips",
+        message: "Copy successfully",
+        type: "success",
+      });
+    } catch (err) {
+      console.error("❌ 复制失败", err);
+      alert("❌ 无法复制，请检查权限或浏览器支持情况");
+    }
+  });
+}
+
 watch(
   () => cardContainerRef.value?.CA,
   async (newValue, oldValue) => {
@@ -170,6 +281,28 @@ watch(
     display: flex;
     justify-content: space-around;
     // align-items: center;
+  }
+
+  .container-text {
+    white-space: pre-line;
+    padding: 15px;
+  }
+
+  .drawer {
+    width: 60%;
+    .title {
+      color: #070919 !important;
+      font-weight: 700 !important;
+      font-size: 12px;
+    }
+    .text-content {
+      color: #546e7a;
+      font-size: 12px;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.33px;
+    }
   }
 }
 </style>

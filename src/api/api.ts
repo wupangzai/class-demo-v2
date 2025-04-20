@@ -139,7 +139,7 @@ export async function getClassInfo(
   return res;
 }
 
-// 获取反馈
+// 获取反馈列表
 export async function getFeedBack(
   id: string,
   isClass: boolean,
@@ -167,6 +167,21 @@ export async function getFeedBack(
       "",
     ],
     no_preview: true,
+  });
+  return res;
+}
+
+// 获取具体反馈内容 markdown
+export async function getFeedBackDetailContent(id: number) {
+  const res = await http.get(`/crm/api/v1/course-schedulings/${id}`, {
+    id,
+    includes: [
+      "teacher",
+      "studyCenter",
+      "classroom",
+      "courseSignin",
+      "teachingRecord",
+    ],
   });
   return res;
 }
