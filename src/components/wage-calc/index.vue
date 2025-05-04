@@ -85,8 +85,11 @@ function coverDataToFitExcel(data: any[]) {
       classDate: dayjs(item.rawStartTime).format("YYYY-MM-DD"),
       level: level.value,
       hourPrice: LevelMap[level.value!],
-      duringHour: dayjs(item.rawEndTime).diff(dayjs(item.rawStartTime), "hour"),
+      duringHour:
+        dayjs(item.rawEndTime).diff(dayjs(item.rawStartTime), "minute") / 60,
     };
+
+    console.log(item);
 
     const isClass = Object.keys(classMember[CAname]).includes(item.stuOrClass);
 
