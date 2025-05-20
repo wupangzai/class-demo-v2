@@ -27,7 +27,7 @@ async function post<T = any, R = any>(
   config?: AxiosRequestConfig,
   type?: string
 ): Promise<T> {
-  let contentType, body: any, responseType;
+  let contentType, body: any;
   switch (type) {
     case "form":
       contentType = "application/x-www-form-urlencoded";

@@ -7,9 +7,17 @@
           <el-button class="button" type="text">{{ date.date }}</el-button>
         </div>
       </template>
-      <div v-for="name in CONST.CANameMapList" class="item-content-container">
+      <div
+        v-for="(name, i) in CONST.CANameMapList"
+        class="item-content-container"
+        :key="i"
+      >
         <el-tag type="info">{{ getText(name.CName) }}</el-tag>
-        <div v-for="course in getRenderList(name.CName)" class="item-info">
+        <div
+          v-for="(course, i) in getRenderList(name.CName)"
+          class="item-info"
+          :key="i"
+        >
           <div>
             <el-tooltip
               class="box-item"

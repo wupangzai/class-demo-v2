@@ -78,7 +78,7 @@ function handleClose(type: CloseType) {
 }
 
 function submit() {
-  if (ruleFormRef) {
+  if (ruleFormRef.value) {
     ruleFormRef.value?.validate(async (valid) => {
       if (valid) {
         const res = await API.LoginToCrm({

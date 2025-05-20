@@ -29,14 +29,6 @@ import { useClipboard } from "@/hooks";
 import { ElNotification, NotificationParams } from "element-plus";
 import { Check } from "@element-plus/icons-vue";
 
-interface Course {
-  time: string;
-  subject: string;
-  stuOrClass: string;
-  teacher: string;
-  classroom: string;
-  isOnline: string;
-}
 interface Props {
   course: any;
 }

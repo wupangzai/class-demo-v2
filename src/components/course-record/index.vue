@@ -66,20 +66,13 @@
 
 <script lang="ts" setup>
 import CustomCardContainer from "@/components/common/custom-card-container/index.vue";
-import { computed, onMounted, ref, render, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import CourseRecordContent from "@/components/course-record/course-record-content.vue";
 import { useLocalStorage, useMetaBaseData } from "@/hooks";
 import dayjs from "dayjs";
 import { API } from "@/api";
-import { marked } from "marked";
 import { ElNotification } from "element-plus";
 import html2canvas from "html2canvas";
-
-function useMarked(markdown: string) {
-  if (markdown) {
-    return marked(markdown);
-  }
-}
 
 const DAYS = ["Yesterday", "Today"];
 
@@ -224,24 +217,8 @@ const drawerTitle = computed(() => {
   if (dialogContent.value) {
     return `${dialogContent.value?.start}-----${dialogContent.value?.end}--${dialogContent.value?.teacher_name}`;
   }
+  return "";
 });
-
-function resizeCanvas(canvas: any, targetWidth = 450) {
-  const scale = targetWidth / canvas.width;
-  const targetHeight = canvas.height * scale;
-
-  const resizedCanvas = document.createElement("canvas");
-  resizedCanvas.width = targetWidth;
-  resizedCanvas.height = targetHeight;
-
-  const ctx = resizedCanvas.getContext("2d") as any;
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = "high";
-
-  ctx.drawImage(canvas, 0, 0, targetWidth, targetHeight);
-
-  return resizedCanvas;
-}
 
 async function copyAsImage() {
   const element = document.getElementById("container-text") as HTMLElement;

@@ -6,14 +6,7 @@ interface Options {
   slotProps: any; // 传入插槽的props
 }
 
-import {
-  isVNode as isVNodeInVue,
-  defineComponent,
-  createVNode,
-  h,
-  render,
-  App,
-} from "vue";
+import { defineComponent, createVNode, h, render, App } from "vue";
 // 弹窗模板组件
 import customDialog from "@/components/common/dialog/custom-dialog.vue";
 
@@ -23,14 +16,14 @@ export function initApp(rootApp: App) {
 }
 
 // 是否为 VNode 节点
-const isVNode = (node: unknown) => {
-  return (
-    isVNodeInVue ??
-    (node !== null &&
-      typeof node === "object" &&
-      Object.prototype.hasOwnProperty.call(node, "componentOptions"))
-  );
-};
+// const isVNode = (node: unknown) => {
+//   return (
+//     isVNodeInVue ??
+//     (node !== null &&
+//       typeof node === "object" &&
+//       Object.prototype.hasOwnProperty.call(node, "componentOptions"))
+//   );
+// };
 
 /**
  * options 同类型接口

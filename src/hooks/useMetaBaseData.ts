@@ -24,7 +24,7 @@ export async function useMetaBaseData(
     ? await useCRMRoomArrangement()
     : ref([]);
   if (crmRoomArrangement.value) {
-    value.value = listAfterSortedByName.map((item: any, index: number) => {
+    value.value = listAfterSortedByName.map((item: any) => {
       let classroom;
       let isOnline;
 

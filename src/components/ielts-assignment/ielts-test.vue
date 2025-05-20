@@ -16,7 +16,7 @@
       <el-table-column prop="title" label="Paper-Title" width="150">
       </el-table-column>
       <el-table-column prop="listening" label="听力" width="150">
-        <template #default="{ row, $index }" slot-scope="scope">
+        <template #default="{ row, $index }">
           <el-button
             v-if="!row.children && row.listening"
             size="small"
@@ -27,7 +27,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="listeningAnswer" label="听力答案" width="150">
-        <template #default="{ row, $index }" slot-scope="scope">
+        <template #default="{ row, $index }">
           <el-button
             v-if="!row.children && row.listeningAnswer"
             size="small"
@@ -60,7 +60,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="writing" label="写作" width="150">
-        <template #default="{ row, $index }" slot-scope="scope">
+        <template #default="{ row, $index }">
           <el-button
             v-if="!row.children && row.writing"
             size="small"
@@ -72,7 +72,7 @@
       </el-table-column>
 
       <el-table-column prop="audio" label="听力音频" width="250">
-        <template slot-scope="scope" #default="{ row, $index }">
+        <template #default="{ row, $index }">
           <el-button
             v-if="row.P1"
             size="small"
@@ -107,7 +107,7 @@
       <!-- <el-table-column prop="link" label="下载文件" @click="clickFn">
       </el-table-column> -->
       <el-table-column>
-        <template slot="header" #header>
+        <template #header>
           <el-input
             v-model="search"
             size="small"
@@ -125,9 +125,11 @@
       </el-table-column>
     </el-table>
     <el-card class="card-tips">
-      <div slot="header" class="clearfix">
-        <span>Tips </span>
-      </div>
+      <template v-slot:header>
+        <div class="clearfix">
+          <span>Tips </span>
+        </div>
+      </template>
       <div>1、预备班卷子只有一张，故放在第一听力位置</div>
       <div style="margin-top: 10px">2、预备班听力第一题为P1、第二题为P2</div>
       <div style="margin-top: 10px">3、5.5分班结班测试没有作文，问老师</div>
@@ -267,7 +269,7 @@ function getIeltsPapers() {
       arry[index] = {};
       arry[index]["title"] = clas;
       arry[index]["key"] = Math.random();
-      arry[index]["children"] = ["开班测试", "结班测试"].map((item, i) => {
+      arry[index]["children"] = ["开班测试", "结班测试"].map((item) => {
         return {
           key: Math.random(),
           title: ` -- ${item}`,
@@ -289,11 +291,13 @@ function getIeltsPapers() {
 }
 
 function handleDown(index: number, row: any, type: string) {
+  console.log(index);
   window.open(row[type]);
 }
 
 function getHeaderColor({ row, rowIndex }: { row: any; rowIndex: number }) {
   if (rowIndex === 0) {
+    console.log(row);
     return "header-color";
   }
 }

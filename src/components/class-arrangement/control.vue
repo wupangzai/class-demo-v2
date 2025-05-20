@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineModel, watch } from "vue";
+import { computed, defineModel } from "vue";
 import dateMapList from "@/components/class-arrangement/config";
 import { UTILS } from "@/common";
 
@@ -39,6 +39,7 @@ const computedDate = computed({
     if (Array.isArray(model.value)) {
       return UTILS.getWeekDates("other", model.value);
     }
+    return "";
   },
   set() {},
 });

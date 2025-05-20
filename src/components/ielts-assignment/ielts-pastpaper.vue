@@ -26,7 +26,7 @@
             placeholder="输入关键字搜索"
           />
         </template>
-        <template slot-scope="scope" #default="{ row, $index }">
+        <template #default="{ row, $index }">
           <el-button
             v-if="row.children"
             size="small"
@@ -38,9 +38,11 @@
       </el-table-column>
     </el-table>
     <el-card class="card-tips">
-      <div slot="header" class="clearfix">
-        <span>Tips </span>
-      </div>
+      <template v-slot:header>
+        <div class="clearfix">
+          <span>Tips </span>
+        </div>
+      </template>
       <div>1、不知道你们的真题版本是不是一样，仅供参考</div>
       <div style="margin-top: 10px">
         2、建议直接Open，打印，但是打印时，【更多设置】-【缩放】不要选择默认，选择
@@ -230,6 +232,7 @@ function handleDown(index: number, row: any) {
 
 function getHeaderColor({ row, rowIndex }: { row: any; rowIndex: number }) {
   if (rowIndex === 0) {
+    console.log(row);
     return "header-color";
   }
 }

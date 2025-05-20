@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable-next-line vue/no-mutating-props -->
   <el-dialog v-model="props.visible" width="500">
     <template #header>
       <span class="custom-header">{{ props.title }}</span>

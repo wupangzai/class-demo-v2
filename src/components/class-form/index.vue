@@ -33,7 +33,7 @@
               v-model="className"
               style="margin: 10px 0px; width: 350px"
             >
-              <template slot="prepend">班级名称</template>
+              <template v-slot:prepend>班级名称</template>
             </el-input>
             <div>
               <el-button @click="fetch" type="danger">偷取班级数据</el-button>
@@ -99,7 +99,7 @@
 import { ref } from "vue";
 import { UploadFilled } from "@element-plus/icons-vue";
 import { tagList } from "@/components/class-form/config";
-import { UploadFile, ElNotification, dayjs } from "element-plus";
+import { ElNotification, dayjs } from "element-plus";
 import { getCRMClassList, getCRMCourseDetail } from "@/api/api";
 import Excel from "exceljs";
 import { saveAs } from "file-saver";
@@ -142,13 +142,11 @@ async function fetch() {
  * @param e
  * @param file
  */
-async function fileChangeInfo(e: Error, file: UploadFile) {
-  const stream = file?.raw?.stream();
-
+async function fileChangeInfo() {
   const workbook = new Excel.Workbook();
 
   // 读取文件
-  const res = await workbook.xlsx.read(stream);
+  // const res = await workbook.xlsx.read(stream);
   // 获取第一个工作
   const worksheet = workbook.getWorksheet("学生信息表");
 
@@ -188,9 +186,9 @@ async function fileChangeInfo(e: Error, file: UploadFile) {
     ["B12", "D12", "E12", "G12"],
   ];
   const data = [];
-  worksheet!.eachRow({ includeEmpty: true }, (row, rowNumber) => {
+  worksheet!.eachRow({ includeEmpty: true }, (row) => {
     const rowData = {};
-    row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+    row.eachCell({ includeEmpty: true }, (cell) => {
       if (cell.address === "C1") {
         cell.value = `${dayjs(courseDetail.value.start).format("M-D")}${
           courseDetail.value.product_short_name
@@ -225,13 +223,11 @@ async function fileChangeInfo(e: Error, file: UploadFile) {
  * @param e
  * @param file
  */
-async function fileChangeSign(e: Error, file: UploadFile) {
-  const stream = file?.raw?.stream();
-
+async function fileChangeSign() {
   const workbook = new Excel.Workbook();
 
   // 读取文件
-  const res = await workbook.xlsx.read(stream);
+  // const res = await workbook.xlsx.read(stream);
   // 获取第一个工作
   const worksheet = workbook.getWorksheet(1);
   const memberList = courseDetail.value.valid_student_names.split(",");
@@ -261,9 +257,9 @@ async function fileChangeSign(e: Error, file: UploadFile) {
   ];
 
   const data = [];
-  worksheet?.eachRow({ includeEmpty: true }, (row, rowNumber) => {
+  worksheet?.eachRow({ includeEmpty: true }, (row) => {
     const rowData = {};
-    row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+    row.eachCell({ includeEmpty: true }, (cell) => {
       if (cell.address === "D1") {
         cell.value = `${courseDetail.value.product_short_name}-${courseDetail.value.product_name}`;
       }
@@ -309,20 +305,18 @@ async function fileChangeSign(e: Error, file: UploadFile) {
   });
 }
 
-async function fileChange(e: Error, file: UploadFile) {
-  const stream = file?.raw?.stream();
-
+async function fileChange() {
   const workbook = new Excel.Workbook();
 
   // 读取文件
-  const res = await workbook.xlsx.read(stream);
+  // const res = await workbook.xlsx.read(stream);
   // 获取第一个工作
   const worksheet = workbook.getWorksheet(1);
 
   const data = [];
-  worksheet?.eachRow({ includeEmpty: true }, (row, rowNumber) => {
+  worksheet?.eachRow({ includeEmpty: true }, (row) => {
     const rowData: Record<string, any> = {};
-    row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+    row.eachCell({ includeEmpty: true }, (cell) => {
       if (cell.address === "C4") {
         // 学生姓名
         cell.value = "";

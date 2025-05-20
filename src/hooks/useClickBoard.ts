@@ -54,6 +54,7 @@ export function useClipboard() {
           resolve(true); // 成功
         }
       } catch (err) {
+        console.log(err);
         reject(false); // 捕获异常
       }
     });

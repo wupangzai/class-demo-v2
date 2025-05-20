@@ -165,7 +165,7 @@ function exportToExcel(list: any) {
   const keys = Object.keys(worksheet);
   keys.pop(); // 去除特殊值
   keys.pop();
-  keys.forEach((key, index) => {
+  keys.forEach((key) => {
     if (worksheet[key]) {
       worksheet[key].s = {}; // 预设 s
     }
@@ -189,7 +189,7 @@ function exportToExcel(list: any) {
   });
 
   // 设置单元格样式
-  keys.forEach((key, index) => {
+  keys.forEach((key) => {
     if (worksheet[key]) {
       worksheet[key].s.font = {
         name: "宋体",
@@ -243,10 +243,5 @@ async function confirm() {
   .el-card__header {
     display: flex;
   }
-}
-</style>
-
-<style lang="less" scoped>
-.wage-calc {
 }
 </style>

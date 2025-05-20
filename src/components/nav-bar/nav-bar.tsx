@@ -19,7 +19,7 @@ export default defineComponent({
   setup() {
     //  Todo  use ref to replace dom operation
     const menuRef = ref<HTMLElement | null>(null);
-    let menuHeight = ref("0px");
+    const menuHeight = ref("0px");
     const panelStyle = computed(() => {
       return {
         height: menuHeight.value + "px",

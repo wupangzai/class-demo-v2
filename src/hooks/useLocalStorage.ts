@@ -1,7 +1,7 @@
 import { ref, watch } from "vue";
 import { UTILS } from "@/common";
 
-export function useLocalStorage<T = any>(key: string, passValue: any = "") {
+export function useLocalStorage(key: string, passValue: any = "") {
   const value = ref<any>("");
 
   const rawKeyValue = window.localStorage.getItem(key)!;
@@ -20,9 +20,9 @@ export function useLocalStorage<T = any>(key: string, passValue: any = "") {
 
   watch(
     value,
-    (newValue, oldValue) => {
+    (newValue) => {
       const newValueStringfy = JSON.stringify(newValue);
-      const oldValueStringfy = JSON.stringify(oldValue);
+      // const oldValueStringfy = JSON.stringify(oldValue);
       // if (oldValueStringfy !== newValueStringfy) {
       window.localStorage.setItem(key, newValueStringfy);
       // }

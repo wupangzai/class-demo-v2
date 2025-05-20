@@ -68,8 +68,8 @@
 import { useLocalStorage } from "@/hooks";
 import dayjs from "dayjs";
 import { ElNotification } from "element-plus";
-import { onMounted, ref, watch } from "vue";
-import { EditPen, Delete, Edit } from "@element-plus/icons-vue";
+import { ref } from "vue";
+import { EditPen, Delete } from "@element-plus/icons-vue";
 
 const inputValue = ref("");
 const renderValue = useLocalStorage("todoList").value

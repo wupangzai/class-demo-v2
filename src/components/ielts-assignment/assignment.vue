@@ -41,7 +41,7 @@
       <!-- <el-table-column prop="link" label="下载文件" @click="clickFn">
       </el-table-column> -->
       <el-table-column>
-        <template #header slot-scope="scope">
+        <template #header>
           <el-input
             v-model="search"
             size="small"
@@ -120,7 +120,7 @@ function getIeltsPapers() {
       arry[index] = {};
       arry[index]["title"] = clas;
       arry[index]["key"] = Math.random();
-      arry[index]["children"] = ["写作词组", "写作话题词组"].map((item, i) => {
+      arry[index]["children"] = ["写作词组", "写作话题词组"].map((item) => {
         return {
           key: Math.random(),
           title: ` -- ${item}`,
@@ -143,7 +143,7 @@ function getIeltsPapers() {
       arry[index]["title"] = clas;
       arry[index]["key"] = Math.random();
       arry[index]["children"] = ["单页词汇默写纸", "双面语料库默写纸"].map(
-        (item, i) => {
+        (item) => {
           return {
             key: Math.random(),
             title: ` -- ${item}`,
@@ -157,7 +157,7 @@ function getIeltsPapers() {
       arry[index]["title"] = clas;
       arry[index]["key"] = Math.random();
       arry[index]["children"] = ["听力阅读答题卡", "雅思写作Task2答题纸"].map(
-        (item, i) => {
+        (item) => {
           return {
             key: Math.random(),
             title: ` -- ${item}`,
@@ -184,7 +184,7 @@ function handleDown(index: number, row: any, type: string) {
 }
 
 function getHeaderColor({ row, rowIndex }: { row: any; rowIndex: number }) {
-  console.log(rowIndex);
+  console.log(rowIndex, row);
 
   if (rowIndex === 0) {
     return "header-color";

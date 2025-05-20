@@ -73,7 +73,9 @@ axiosInstance.interceptors.response.use(
         type: "error",
       });
       const res = await useLoginDialog();
-      res === "confirm" && window.location.reload();
+      if (res === "confirm") {
+        window.location.reload();
+      }
     }
     return Promise.resolve(error); // resolve 错误提示，以免红色屏幕警告
   }
