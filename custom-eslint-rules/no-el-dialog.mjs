@@ -13,14 +13,15 @@ export default {
   },
   create(context) {
     return {
-      VElement(node) {
-        // 有些版本用 node.name，有些用 node.rawName
-        const name = node.rawName || node.name;
-        console.log(name);
-        if (name === "el-dialog") {
-          context.report({
-            node,
-            messageId: "noElDialog",
+      "*": (node) => {
+        if (node.templateBody?.type === "VElement") {
+          node.templateBody.tokens.forEach((node) => {
+            if (node.value === "el-dialog") {
+              context.report({
+                node,
+                messageId: "noElDialog",
+              });
+            }
           });
         }
       },
