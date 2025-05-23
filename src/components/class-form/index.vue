@@ -99,7 +99,7 @@
 import { ref } from "vue";
 import { UploadFilled } from "@element-plus/icons-vue";
 import { tagList } from "@/components/class-form/config";
-import { ElNotification, dayjs } from "element-plus";
+import { UploadFile, ElNotification, dayjs } from "element-plus";
 import { getCRMClassList, getCRMCourseDetail } from "@/api/api";
 import Excel from "exceljs";
 import { saveAs } from "file-saver";
@@ -142,8 +142,13 @@ async function fetch() {
  * @param e
  * @param file
  */
-async function fileChangeInfo() {
+async function fileChangeInfo(e: Error, file: UploadFile) {
+  const stream = file?.raw?.stream();
+
   const workbook = new Excel.Workbook();
+
+  // 读取文件
+  await workbook.xlsx.read(stream);
 
   // 读取文件
   // const res = await workbook.xlsx.read(stream);
@@ -223,11 +228,13 @@ async function fileChangeInfo() {
  * @param e
  * @param file
  */
-async function fileChangeSign() {
+async function fileChangeSign(e: Error, file: UploadFile) {
+  const stream = file?.raw?.stream();
+
   const workbook = new Excel.Workbook();
 
   // 读取文件
-  // const res = await workbook.xlsx.read(stream);
+  await workbook.xlsx.read(stream);
   // 获取第一个工作
   const worksheet = workbook.getWorksheet(1);
   const memberList = courseDetail.value.valid_student_names.split(",");
@@ -305,8 +312,13 @@ async function fileChangeSign() {
   });
 }
 
-async function fileChange() {
+async function fileChange(e: Error, file: UploadFile) {
+  const stream = file?.raw?.stream();
+
   const workbook = new Excel.Workbook();
+
+  // 读取文件
+  await workbook.xlsx.read(stream);
 
   // 读取文件
   // const res = await workbook.xlsx.read(stream);
