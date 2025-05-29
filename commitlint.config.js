@@ -18,6 +18,7 @@ module.exports = {
         "chore", // 构建工具或其他依赖变动
         "revert", // 回滚操作
         "build", // 构建打包相关
+        "core",
       ],
     ],
   },
