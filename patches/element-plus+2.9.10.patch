@@ -1,0 +1,12 @@
+diff --git a/node_modules/element-plus/es/components/button/src/button.mjs b/node_modules/element-plus/es/components/button/src/button.mjs
+index 9b0f9ea..987b538 100644
+--- a/node_modules/element-plus/es/components/button/src/button.mjs
++++ b/node_modules/element-plus/es/components/button/src/button.mjs
+@@ -57,5 +57,7 @@ const buttonEmits = {
+   click: (evt) => evt instanceof MouseEvent
+ };
+ 
++console.log('patch-button test')
++
+ export { buttonEmits, buttonNativeTypes, buttonProps, buttonTypes };
+ //# sourceMappingURL=button.mjs.map
