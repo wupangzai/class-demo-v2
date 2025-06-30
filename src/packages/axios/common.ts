@@ -1,4 +1,6 @@
 import { AxiosRequestConfig } from "axios";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const qs = require("qs");
 import { axiosInstance, options } from "./axiosInstance";
 
 /**
@@ -31,7 +33,7 @@ async function post<T = any, R = any>(
   switch (type) {
     case "form":
       contentType = "application/x-www-form-urlencoded";
-      //  body = qs.stringify(data);  // TODO:FIXME stringify
+      body = qs.stringify(data); // TODO:FIXME stringify
       break;
     case "json":
       contentType = "application/json";

@@ -1,6 +1,14 @@
-export type Name = "吴彬" | "董洁" | "王南飞" | "刘维倩" | "王淑贤" | "江玥彤";
+export type Name =
+  | "吴彬"
+  | "董洁"
+  | "王南飞"
+  | "刘维倩"
+  | "王淑贤"
+  | "江玥彤"
+  | "邓志豪"
+  | "test";
 
-interface CANameMap {
+export interface CANameMap {
   CName: Name;
   EName: string;
 }
@@ -34,4 +42,12 @@ export const CANameMapList: CANameMap[] = [
     CName: "江玥彤",
     EName: "Aurora",
   },
+  {
+    CName: "test",
+    EName: "test",
+  },
+  // {
+  //   CName: "邓志豪",
+  //   EName: "Aurora",
+  // },
 ];

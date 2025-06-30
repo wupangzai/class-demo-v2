@@ -105,6 +105,14 @@ const menu = [
     subMenu: [],
     path: "/todo-list",
   },
+  {
+    index: "9",
+    component: "el-menu-item",
+    icon: Edit,
+    title: "Timetable",
+    subMenu: [],
+    path: "/timetable",
+  },
 ];
 
 export default menu;

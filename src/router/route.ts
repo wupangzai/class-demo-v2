@@ -42,6 +42,10 @@ const routes: RouteRecordRaw[] = [
     path: "/todo-list",
     component: () => import("@/components/todo-list/index.vue"),
   },
+  {
+    path: "/timetable",
+    component: () => import("@/components/PTE-sources/index.vue"),
+  },
 ];
 
 export default routes;
