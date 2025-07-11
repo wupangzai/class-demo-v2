@@ -41,9 +41,9 @@ interface LoginData {
 export async function LoginToCrm(LoginData: LoginData) {
   const res = await http.postJson("/crm/api/v1/pub/login", {
     altcha:
-      "eyJhbGdvcml0aG0iOiJTSEEtMjU2IiwiY2hhbGxlbmdlIjoiYjNhMTZkZDJlNTYxZjRkZTY4YTZlMzAwNzY5ZjZhNWExYTY1ZTYwNDBkY2MxOWZkOWEyYzg0OTE5NGJmNjI2YyIsIm51bWJlciI6Mzk0Miwic2FsdCI6IjY4ODVmZDAyMDA1YWNhY2MwYmFhNWM2ZCIsInNpZ25hdHVyZSI6ImI1ZTE2MGEyOTdhMmM2MmI0ZGYxMmE3MmU5MjhlOWRiMTU1MDU4Y2VhZGI4M2M3MGRmYjNjMGQzNGE4YjcxYTkiLCJ0b29rIjozNzZ9",
+      "eyJhbGdvcml0aG0iOiJTSEEtMjU2IiwiY2hhbGxlbmdlIjoiYWRlYThhMGJhOWM1NmZjZDRmMDczNWFhM2I4ZGZhNTE1Njg4ZTE1OTE5NWY1ZmQwMjhmYmNjZjBhOWViMDRkNiIsIm51bWJlciI6NjUwMSwic2FsdCI6ImViNzY5ZTA1MjllZGI2OWYzMWQ0ZDAyZCIsInNpZ25hdHVyZSI6ImUzMDI5N2NiYmI5Yzk4NWU4MDdiZTY0NGM1ZDVlZmYxOGU2OWIyZDRlNzUxNjkzNzljOTU4ZmU3MjAwZmJmN2MiLCJ0b29rIjo0Njd9",
     org_id: 5,
-    fingerprint: "a7b01d68f4dbc841aef9aedcd0d3fd16",
+    fingerprint: "effe59682bd8dcbf0db6592bc5b546d2",
     ...LoginData,
   });
 
