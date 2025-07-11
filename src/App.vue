@@ -17,6 +17,18 @@
 <script lang="ts" setup>
 import NavBar from "@/components/nav-bar/nav-bar";
 import TopBar from "@/components/top-bar/top-bar.vue";
+import { computed } from "vue";
+import { useStore } from "@/store";
+
+const store = useStore();
+
+const number = computed(() => store.state.number);
+
+const total = computed(() => store.getters.total);
+
+store.commit("INCREMENT");
+
+console.log(number.value, total);
 </script>
 
 <style lang="less">
