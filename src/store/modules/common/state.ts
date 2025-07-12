@@ -2,11 +2,13 @@
 interface State {
   number: number;
   name: string;
+  test: string;
 }
 
 const state: State = {
   number: 1,
   name: "dingzhen",
+  test: "test",
 };
 
 export { State, state };
