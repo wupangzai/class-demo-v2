@@ -49,6 +49,7 @@ type RootCommit = CommitType<RootMutations>;
 
 /**---------------------------------------Actions---------------------------------------------------------------- */
 import { Actions as CommonActions } from "@/store/modules/common/actions";
+import { ActionsInRoot } from "@/store/types/root";
 type NamespacedActions<
   N extends string,
   A extends Record<string, (...args: any[]) => any>
@@ -66,8 +67,9 @@ type DispatchType<A extends Record<string, (...args: any[]) => any>> = <
     : [payload?: undefined, options?: DispatchOptions] // 统一hooks和store类型检测，不传payload的时候保留payload签名，都是undefined
 ) => ReturnType<A[T]>;
 
-type RootActions = NamespacedActions<"commonModule", CommonActions>; // // 合并多个同actions拼接即可
+type RootActions = NamespacedActions<"commonModule", CommonActions> &
+  ActionsInRoot; // // 合并多个同actions拼接即可
 type RootDispatch = DispatchType<RootActions>;
 /**---------------------------------------Actions---------------------------------------------------------------- */
 
-export { RootGetters, RootCommit, RootMutations, RootDispatch };
+export { RootGetters, RootCommit, RootMutations, RootDispatch, RootActions };

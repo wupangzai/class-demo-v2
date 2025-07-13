@@ -1,14 +1,14 @@
 import useCommonState from "@/store/hooks/commonModule/useCommonState";
 import useCommonGetters from "@/store/hooks/commonModule/useCommonGetters";
 import useMutations from "@/store/hooks/commonModule/useMutations";
-import useCommonActions from "@/store/hooks/commonModule//useCommonActions";
+import useActions from "@/store/hooks/commonModule//useActions";
 
 export {
   // commonModule store
   useCommonState,
   useCommonGetters,
   useMutations,
-  useCommonActions,
+  useActions,
 };
 
 /**
@@ -23,7 +23,7 @@ export {
  * const { xxx, bbb } = useMutations(["xxx", "bbb"]),  xxx, bbb  =>  Fn
  *
  *
- * const { xxx, bbb } = useCommonActions(["xxx", "bbb"]),  xxx, bbb  =>  Fn
+ * const { xxx, bbb } = useActions(["xxx", "bbb"]),  xxx, bbb  =>  Fn
  *
  *
  *

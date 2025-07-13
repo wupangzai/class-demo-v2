@@ -5,6 +5,7 @@ import {
   RootCommit,
   RootDispatch,
 } from "@/store/types/types-helper";
+import { ActionContext } from "vuex";
 
 type RootState = {
   version: string;
@@ -15,6 +16,10 @@ type MutationsInRoot = {
   fn(state: RootState, payload: number): void;
 };
 
+type ActionsInRoot = {
+  fn(context: ActionContext<RootState, RootState>): void;
+};
+
 interface EnhancedStore
   extends Omit<VuexStore<RootState>, "getters" | "commit" | "dispatch"> {
   getters: RootGetters;
@@ -22,4 +27,4 @@ interface EnhancedStore
   dispatch: RootDispatch;
 }
 
-export { RootState, EnhancedStore, MutationsInRoot };
+export { RootState, EnhancedStore, MutationsInRoot, ActionsInRoot };
