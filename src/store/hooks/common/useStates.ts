@@ -1,6 +1,6 @@
 import { computed, ComputedRef } from "vue";
 import { useStore } from "@/store";
-import type { RootState } from "@/store/types/root";
+import type { RootState } from "@/store/modules/root/types";
 import type { ModuleStates } from "@/store/types/types-helper";
 
 // ===== 工具类型 =====

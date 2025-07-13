@@ -1,7 +1,7 @@
 import { INCREMENT_ACTION, DECREMENT_ACTION } from "./actions-types";
 import { State } from "./state";
 import { ActionContext as VuexActionContext, ActionTree } from "vuex";
-import { RootState } from "@/store/types/root";
+import { RootState } from "@/store/modules/root/types";
 
 type CommonActionContext = VuexActionContext<State, RootState>;
 

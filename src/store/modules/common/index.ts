@@ -3,7 +3,7 @@ import { State, state } from "./state";
 import { getters } from "./getters";
 import { mutations } from "./mutations";
 import { actions } from "./actions";
-import { RootState } from "@/store/types/root";
+import { RootState } from "@/store/modules/root/types";
 
 const commonModule: Module<State, RootState> = {
   namespaced: true,

@@ -1,6 +1,6 @@
 import { GetterTree } from "vuex";
 import { State } from "./state";
-import { RootState } from "@/store/types/root";
+import { RootState } from "@/store/modules/root/types";
 
 // Getters 类型
 type Getters = {

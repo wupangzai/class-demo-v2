@@ -15,7 +15,7 @@ type NamespacedGetters<MName extends string, G> = {
 };
 
 import { Getters as CommonGetters } from "@/store/modules/common/getters";
-import { GettersInRoot } from "@/store/types/root";
+import { GettersInRoot } from "@/store/modules/root/types";
 type RootGetters = NamespacedGetters<"commonModule", CommonGetters> &
   GettersInRoot;
 // 也可以合并多个模块：
@@ -30,7 +30,7 @@ type RootGetters = NamespacedGetters<"commonModule", CommonGetters> &
 /**---------------------------------------Mutations---------------------------------------------------------------- */
 
 import { Mutations as CommonMutations } from "@/store/modules/common/mutations";
-import { MutationsInRoot } from "@/store/types/root";
+import { MutationsInRoot } from "@/store/modules/root/types";
 type NamespacedMutations<
   N extends string,
   M extends Record<string, (...args: any[]) => any>
@@ -59,7 +59,7 @@ type RootCommit = CommitType<RootMutations>;
 
 /**---------------------------------------Actions---------------------------------------------------------------- */
 import { Actions as CommonActions } from "@/store/modules/common/actions";
-import { ActionsInRoot } from "@/store/types/root";
+import { ActionsInRoot } from "@/store/modules/root/types";
 type NamespacedActions<
   N extends string,
   A extends Record<string, (...args: any[]) => any>
