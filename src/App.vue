@@ -17,6 +17,9 @@
 <script lang="ts" setup>
 import NavBar from "@/components/nav-bar/nav-bar";
 import TopBar from "@/components/top-bar/top-bar.vue";
+// import { useMutations } from "@/store/hooks";
+// import { useStore } from "@/store";
+// const store = useStore();
 </script>
 
 <style lang="less">

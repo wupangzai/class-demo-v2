@@ -20,6 +20,7 @@ type RootGetters = NamespacedGetters<"commonModule", CommonGetters> &
 /**---------------------------------------Mutations---------------------------------------------------------------- */
 
 import { Mutations as CommonMutations } from "@/store/modules/common/mutations";
+import { MutationsInRoot } from "@/store/types/root";
 type NamespacedMutations<
   N extends string,
   M extends Record<string, (...args: any[]) => any>
@@ -41,7 +42,8 @@ type CommitType<M extends Record<string, (...args: any[]) => any>> = <
   ...args: CommitParameters<M[T]>
 ) => ReturnType<M[T]>;
 
-type RootMutations = NamespacedMutations<"commonModule", CommonMutations>; // 合并多个同getters拼接即可, 根模块则直接拼接即可
+type RootMutations = NamespacedMutations<"commonModule", CommonMutations> &
+  MutationsInRoot; // 合并多个同getters拼接即可, 根模块则直接拼接即可
 type RootCommit = CommitType<RootMutations>;
 /**---------------------------------------Mutations---------------------------------------------------------------- */
 
@@ -68,4 +70,4 @@ type RootActions = NamespacedActions<"commonModule", CommonActions>; // // 合�
 type RootDispatch = DispatchType<RootActions>;
 /**---------------------------------------Actions---------------------------------------------------------------- */
 
-export { RootGetters, RootCommit, RootDispatch };
+export { RootGetters, RootCommit, RootMutations, RootDispatch };

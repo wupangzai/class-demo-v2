@@ -6,9 +6,13 @@ import {
   RootDispatch,
 } from "@/store/types/types-helper";
 
-export type RootState = {
+type RootState = {
   version: string;
   commonModule: State; // 让ts推导安全检测，如store.state.commonModule.xxx
+};
+
+type MutationsInRoot = {
+  fn(state: RootState, payload: number): void;
 };
 
 interface EnhancedStore
@@ -18,4 +22,4 @@ interface EnhancedStore
   dispatch: RootDispatch;
 }
 
-export { RootState, EnhancedStore };
+export { RootState, EnhancedStore, MutationsInRoot };

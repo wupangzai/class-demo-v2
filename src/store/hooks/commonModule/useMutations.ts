@@ -1,8 +1,6 @@
 import { useStore } from "@/store";
-import { Mutations } from "@/store/modules/common/mutations";
 import { CommitOptions } from "vuex";
-
-// ========== 类型工具 ==========
+import { RootMutations } from "@/store/types/types-helper";
 
 // 将 mutation 转换为调用函数（根据 payload 是否可选处理参数）
 type MutationFn<T> = T extends (state: any, payload: infer P) => any
@@ -19,19 +17,19 @@ type MutationMapper<T extends Record<string, (...args: any[]) => any>> = {
 // ========== 重载定义 ==========
 
 // 方式 1：传数组（返回 Pick 工具函数）
-function useCommonMutations<K extends keyof Mutations>(
+function useMutations<K extends keyof RootMutations>(
   keys: K[]
-): Pick<MutationMapper<Mutations>, K>;
+): Pick<MutationMapper<RootMutations>, K>;
 
 // 方式 2：传别名映射（返回别名类型）
-function useCommonMutations<M extends Record<string, keyof Mutations>>(
+function useMutations<M extends Record<string, keyof RootMutations>>(
   keys: M
-): { [K in keyof M]: MutationFn<Mutations[M[K]]> };
+): { [K in keyof M]: MutationFn<RootMutations[M[K]]> };
 
 // ========== 实现 ==========
 
-function useCommonMutations(
-  keys: (keyof Mutations)[] | Record<string, keyof Mutations>
+function useMutations(
+  keys: (keyof RootMutations)[] | Record<string, keyof RootMutations>
 ) {
   const store = useStore();
   const result: Record<string, any> = {};
@@ -39,12 +37,12 @@ function useCommonMutations(
   if (Array.isArray(keys)) {
     keys.forEach((key) => {
       result[key as string] = (payload?: any, options?: CommitOptions) =>
-        store.commit(`commonModule/${key}`, payload, options);
+        store.commit(key as keyof RootMutations, payload, options);
     });
   } else {
     Object.entries(keys).forEach(([alias, key]) => {
       result[alias] = (payload?: any, options?: CommitOptions) =>
-        store.commit(`commonModule/${key}`, payload, options);
+        store.commit(key, payload, options);
     });
   }
 
@@ -56,4 +54,4 @@ function useCommonMutations(
  * 定义时未定义的则为可选，undefined
  *
  */
-export default useCommonMutations;
+export default useMutations;

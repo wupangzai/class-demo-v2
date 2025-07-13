@@ -11,6 +11,7 @@ const mutations: MutationTree<State> & Mutations = {
   [INCREMENT](state, payload) {
     state.number += payload;
     console.log("mupayload", state.number);
+    return 100;
   },
 
   [DECREMENT](state) {
