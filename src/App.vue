@@ -17,16 +17,6 @@
 <script lang="ts" setup>
 import NavBar from "@/components/nav-bar/nav-bar";
 import TopBar from "@/components/top-bar/top-bar.vue";
-// import { useMutations, useActions, useCommonGetters } from "@/store/hooks";
-// import { useStore } from "@/store";
-// const store = useStore();
-
-// const { name, "commonModule/total": total } = useCommonGetters([
-//   "name",
-//   "commonModule/total",
-// ]);
-
-// console.log("[ name.value ] >", name.value, total.value);
 </script>
 
 <style lang="less">

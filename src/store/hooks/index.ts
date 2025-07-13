@@ -1,31 +1,21 @@
-import useCommonState from "@/store/hooks/commonModule/useCommonState";
-import useCommonGetters from "@/store/hooks/commonModule/useGetters";
-import useMutations from "@/store/hooks/commonModule/useMutations";
-import useActions from "@/store/hooks/commonModule//useActions";
+import useStates from "@/store/hooks/common/useStates";
+import useGetters from "@/store/hooks/common/useGetters";
+import useMutations from "@/store/hooks/common/useMutations";
+import useActions from "@/store/hooks/common/useActions";
 
-export {
-  // commonModule store
-  useCommonState,
-  useCommonGetters,
-  useMutations,
-  useActions,
-};
+export { useStates, useGetters, useMutations, useActions };
 
 /**
  * 使用方法
  *
- * const { xxx, bbb } = useCommonState(["xxx", "bbb"]),  xxx, bbb  =>  ComputedRef
+ * const { version } = useStates(["version"]);  //rootState
+   const { number, test } = useStates("commonModule", ["number", "test"]);  // moduleState
  *
  *
- * const { xxx, bbb } = useCommonGetters(["xxx", "bbb"]),  xxx, bbb  =>  ComputedRef
+ * const { "commonModule/total": total, name } = useGetters(["commonModule/total","name"]);
  *
+ * const { "commonModule/DECREMENT": DECREMENT, fn } = useMutations(['commonModule/DECREMENT', 'fn'])
  *
- * const { xxx, bbb } = useMutations(["xxx", "bbb"]),  xxx, bbb  =>  Fn
- *
- *
- * const { xxx, bbb } = useActions(["xxx", "bbb"]),  xxx, bbb  =>  Fn
- *
- *
- *
+ * const { "commonModule/DECREMENT_ACTION": DECREMENT_ACTION, fn } = useActions(['commonModule/DECREMENT_ACTION', 'fn'])
  *
  */

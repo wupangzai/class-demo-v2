@@ -1,4 +1,12 @@
 import { CommitOptions, DispatchOptions } from "vuex";
+/**---------------------------------------State---------------------------------------------------------------- */
+
+import { State as CommonState } from "@/store/modules/common/state";
+type ModuleStates = {
+  commonModule: CommonState;
+  // otherModule: OtherState;
+};
+/**---------------------------------------State---------------------------------------------------------------- */
 
 /**---------------------------------------Getters---------------------------------------------------------------- */
 // 把某模块的 Getters 转换为 "模块名/方法名" 映射表
@@ -74,4 +82,11 @@ type RootActions = NamespacedActions<"commonModule", CommonActions> &
 type RootDispatch = DispatchType<RootActions>;
 /**---------------------------------------Actions---------------------------------------------------------------- */
 
-export { RootGetters, RootCommit, RootMutations, RootDispatch, RootActions };
+export {
+  ModuleStates,
+  RootGetters,
+  RootCommit,
+  RootMutations,
+  RootDispatch,
+  RootActions,
+};
