@@ -12,6 +12,10 @@ type RootState = {
   commonModule: State; // 让ts推导安全检测，如store.state.commonModule.xxx
 };
 
+type GettersInRoot = {
+  name(state: RootState): string;
+};
+
 type MutationsInRoot = {
   fn(state: RootState, payload: number): void;
 };
@@ -27,4 +31,10 @@ interface EnhancedStore
   dispatch: RootDispatch;
 }
 
-export { RootState, EnhancedStore, MutationsInRoot, ActionsInRoot };
+export {
+  RootState,
+  EnhancedStore,
+  MutationsInRoot,
+  ActionsInRoot,
+  GettersInRoot,
+};

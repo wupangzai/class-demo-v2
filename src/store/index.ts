@@ -12,6 +12,7 @@ import {
   EnhancedStore,
   MutationsInRoot,
   ActionsInRoot,
+  GettersInRoot,
 } from "./types/root";
 
 const key: InjectionKey<VuexStore<RootState>> = Symbol(); // 创建一个具备类型安全的唯一注入 Key，用于在 Vue 组件中注入 Store 实例。
@@ -19,6 +20,10 @@ const key: InjectionKey<VuexStore<RootState>> = Symbol(); // 创建一个具备�
 const rootState = {
   version: "v2.0.0",
 } as RootState;
+
+const gettersInRoot: GettersInRoot = {
+  name: () => "dingzhenroot",
+};
 
 const mutationsInRoot: MutationsInRoot = {
   fn(state, payload) {
@@ -38,6 +43,8 @@ const store = createStore({
   mutations: mutationsInRoot, // TEST
 
   actions: actionsInRoot, // TEST
+
+  getters: gettersInRoot,
 
   modules: {
     commonModule,

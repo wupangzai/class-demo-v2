@@ -7,7 +7,9 @@ type NamespacedGetters<MName extends string, G> = {
 };
 
 import { Getters as CommonGetters } from "@/store/modules/common/getters";
-type RootGetters = NamespacedGetters<"commonModule", CommonGetters>;
+import { GettersInRoot } from "@/store/types/root";
+type RootGetters = NamespacedGetters<"commonModule", CommonGetters> &
+  GettersInRoot;
 // 也可以合并多个模块：
 /*
 type RootGetters = NamespacedGetters<"commonModule", CommonGetters> &

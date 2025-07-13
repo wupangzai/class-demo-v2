@@ -1,5 +1,5 @@
 import useCommonState from "@/store/hooks/commonModule/useCommonState";
-import useCommonGetters from "@/store/hooks/commonModule/useCommonGetters";
+import useCommonGetters from "@/store/hooks/commonModule/useGetters";
 import useMutations from "@/store/hooks/commonModule/useMutations";
 import useActions from "@/store/hooks/commonModule//useActions";
 
