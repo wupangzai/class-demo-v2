@@ -1,86 +1,72 @@
 import { CommitOptions, DispatchOptions } from "vuex";
-/**---------------------------------------State---------------------------------------------------------------- */
+
+// 将模块化的Getters 映射为带模块名字的字面量：commonModule/name
+type NamespacedGetters<ModuleName extends string, G> = {
+  [K in keyof G as `${ModuleName}/${string & K}`]: ReturnType<G[K]>;
+};
+
+// 将模块化的Actions/Mutations映射为带模块名的字面量：commonModule/INCREMENT
+type NameSpacedActionsOrMutations<
+  ModuleName extends string,
+  AllTypes extends (...args: any[]) => any
+> = {
+  [K in keyof AllTypes as `${ModuleName}/${K}`]: AllTypes[K];
+};
+
+type StoreTypes = "Actions" | "Mutations";
+type GetTypesOptions<T extends StoreTypes> = T extends Extract<
+  StoreTypes,
+  "Mutations"
+>
+  ? CommitOptions
+  : DispatchOptions;
+
+// 维护类型，根据payload是否传值定义
+type GetParametersTypes<Type extends StoreTypes, Fn> = Parameters<Fn> extends [
+  any,
+  infer P
+]
+  ? undefined extends P
+    ? [payload?: undefined, options?: GetTypesOptions<Type>]
+    : [payload: P, options?: GetTypesOptions<Type>]
+  : [payload?: undefined, options?: GetTypesOptions<Type>];
+
+// 增强Store的commit和dispatch类型推导
+type EnhanceStoreTypes<
+  Type extends StoreTypes,
+  T extends Record<string, (...args: any[]) => any>
+> = <K extends keyof T>(
+  type: K,
+  ...args: GetParametersTypes<Type, T[K]>
+) => ReturnType<T[K]>;
 
 import { State as CommonState } from "@/store/modules/common/state";
 type ModuleStates = {
   commonModule: CommonState;
   // otherModule: OtherState;
 };
-/**---------------------------------------State---------------------------------------------------------------- */
-
-/**---------------------------------------Getters---------------------------------------------------------------- */
-// 把某模块的 Getters 转换为 "模块名/方法名" 映射表
-type NamespacedGetters<MName extends string, G> = {
-  [K in keyof G as `${MName}/${string & K}`]: ReturnType<G[K]>;
-};
 
 import { Getters as CommonGetters } from "@/store/modules/common/getters";
 import { GettersInRoot } from "@/store/modules/root/types";
 type RootGetters = NamespacedGetters<"commonModule", CommonGetters> &
   GettersInRoot;
-// 也可以合并多个模块：
-/*
-type RootGetters = NamespacedGetters<"commonModule", CommonGetters> &
-                   NamespacedGetters<"user", UserGetters> &
-                   ...
-*/
-
-/**---------------------------------------Getters---------------------------------------------------------------- */
-
-/**---------------------------------------Mutations---------------------------------------------------------------- */
 
 import { Mutations as CommonMutations } from "@/store/modules/common/mutations";
 import { MutationsInRoot } from "@/store/modules/root/types";
-type NamespacedMutations<
-  N extends string,
-  M extends Record<string, (...args: any[]) => any>
-> = {
-  [K in keyof M as `${N}/${string & K}`]: M[K];
-};
 
-// 判断是否有 payload 的条件工具类型
-type CommitParameters<F> = Parameters<F> extends [any, infer P]
-  ? undefined extends P
-    ? [payload?: P, options?: CommitOptions]
-    : [payload: P, options?: CommitOptions]
-  : [payload?: undefined, options?: CommitOptions]; // // 统一hooks和store类型检测，不传payload的时候保留payload签名，都是undefined
+type RootMutations = NameSpacedActionsOrMutations<
+  "commonModule",
+  CommonMutations
+> &
+  MutationsInRoot;
+type RootCommit = EnhanceStoreTypes<"Mutations", RootMutations>;
 
-type CommitType<M extends Record<string, (...args: any[]) => any>> = <
-  T extends keyof M
->(
-  type: T,
-  ...args: CommitParameters<M[T]>
-) => ReturnType<M[T]>;
-
-type RootMutations = NamespacedMutations<"commonModule", CommonMutations> &
-  MutationsInRoot; // 合并多个同getters拼接即可, 根模块则直接拼接即可
-type RootCommit = CommitType<RootMutations>;
-/**---------------------------------------Mutations---------------------------------------------------------------- */
-
-/**---------------------------------------Actions---------------------------------------------------------------- */
 import { Actions as CommonActions } from "@/store/modules/common/actions";
 import { ActionsInRoot } from "@/store/modules/root/types";
-type NamespacedActions<
-  N extends string,
-  A extends Record<string, (...args: any[]) => any>
-> = {
-  [K in keyof A as `${N}/${string & K}`]: A[K];
-};
 
-// 封装 dispatch 类型
-type DispatchType<A extends Record<string, (...args: any[]) => any>> = <
-  T extends keyof A
->(
-  type: T,
-  ...args: Parameters<A[T]> extends [any, infer P]
-    ? [payload: P, options?: DispatchOptions]
-    : [payload?: undefined, options?: DispatchOptions] // 统一hooks和store类型检测，不传payload的时候保留payload签名，都是undefined
-) => ReturnType<A[T]>;
-
-type RootActions = NamespacedActions<"commonModule", CommonActions> &
-  ActionsInRoot; // // 合并多个同actions拼接即可
-type RootDispatch = DispatchType<RootActions>;
-/**---------------------------------------Actions---------------------------------------------------------------- */
+type RootActions = NameSpacedActionsOrMutations<"commonModule", CommonActions> &
+  ActionsInRoot;
+type RootDispatch = EnhanceStoreTypes<"Actions", RootActions>;
 
 export {
   ModuleStates,
@@ -89,4 +75,6 @@ export {
   RootMutations,
   RootDispatch,
   RootActions,
+  StoreTypes,
+  GetTypesOptions,
 };

@@ -14,6 +14,7 @@ const rootState = {
 
 const gettersInRoot: GettersInRoot = {
   name: () => "dingzhenroot",
+  a: () => 123,
 };
 
 const mutationsInRoot: MutationsInRoot = {

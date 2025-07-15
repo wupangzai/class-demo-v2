@@ -2,19 +2,14 @@ import { computed, ComputedRef } from "vue";
 import { useStore } from "@/store";
 import type { RootState } from "@/store/modules/root/types";
 import type { ModuleStates } from "@/store/types/types-helper";
+import { StateOrGettersMapper } from "@/store/hooks/common/types-helper";
 
-// ===== 工具类型 =====
-
-type StateMapper<T> = {
-  [K in keyof T]: ComputedRef<T[K]>;
-};
-
-// ===== 重载定义 =====
+//  重载定义
 
 // 根模块数组
 function useStates<K extends keyof RootState>(
   keys: K[]
-): Pick<StateMapper<RootState>, K>;
+): Pick<StateOrGettersMapper<RootState>, K>;
 
 // 根模块别名
 function useStates<M extends Record<string, keyof RootState>>(
@@ -25,7 +20,7 @@ function useStates<M extends Record<string, keyof RootState>>(
 function useStates<
   N extends keyof ModuleStates,
   K extends keyof ModuleStates[N]
->(namespace: N, keys: K[]): Pick<StateMapper<ModuleStates[N]>, K>;
+>(namespace: N, keys: K[]): Pick<StateOrGettersMapper<ModuleStates[N]>, K>;
 
 // 模块命名空间别名
 function useStates<
@@ -36,7 +31,7 @@ function useStates<
   keys: M
 ): { [K in keyof M]: ComputedRef<ModuleStates[N][M[K]]> };
 
-// ===== 实现体 =====
+//  实现体
 function useStates(
   namespaceOrKeys:
     | keyof RootState

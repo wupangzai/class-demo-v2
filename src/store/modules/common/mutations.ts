@@ -3,7 +3,7 @@ import { State } from "./state";
 import { INCREMENT, DECREMENT } from "./mutation-types";
 
 type Mutations = {
-  [INCREMENT](state: State, payload: number): void;
+  [INCREMENT](state: State, payload: number): number;
   [DECREMENT](state: State): void;
 };
 

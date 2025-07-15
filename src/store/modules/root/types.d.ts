@@ -8,6 +8,7 @@ type RootState = {
 
 type GettersInRoot = {
   name(state: RootState): string;
+  a: () => number;
 };
 
 type MutationsInRoot = {
